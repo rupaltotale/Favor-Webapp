@@ -1,0 +1,43 @@
+.footer-position {
+    font-size: 16px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4.5rem;            /* Footer height */
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.nav-buttons {
+    margin-left: 40%;
+}
+
+.nav-buttons > a {
+    color: black;
+    padding: 10px 30px;
+    margin: 5% 20%;
+    white-space: nowrap;
+    border: 2px solid black;
+}
+
+.nav-buttons > a:hover {
+    color: black;
+}
+
+#avatar {
+    padding: 10px;
+}
+
+.circle {
+    border: 3px solid black;
+    border-radius: 50%;
+}
