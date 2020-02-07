@@ -1,12 +1,18 @@
 var slideIndex = 0;
 var nextSlideTimer;
-const slides = ["fixBike.jpg", "massage.jpg", "volunteer.jpg"];
+const slides = [
+    {
+        url: "fixBike.jpg",
+        description: "Fix a bike"
+    },
+    { url: "massage.jpg", description: "Massage" },
+    { url: "volunteer.jpg", description: "Volunteer" }
+];
 
 function Timer(fn, t) {
     var timerObj = setInterval(fn, t);
 
     this.stop = function() {
-        console.log("stopping timer");
         if (timerObj) {
             clearInterval(timerObj);
             timerObj = null;
@@ -18,7 +24,6 @@ function Timer(fn, t) {
     this.start = function() {
         if (!timerObj) {
             this.stop();
-            console.log("starting timer");
             timerObj = setInterval(fn, t);
         }
         return this;
@@ -66,12 +71,11 @@ function showSlides(n) {
     for (var i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
-    image.src = DJANGO_STATIC_URL + "static/images/" + slides[slideIndex];
+    image.src = DJANGO_STATIC_URL + "static/images/" + slides[slideIndex].url;
 
     document.getElementsByClassName("mySlides")[0].style.display = "block";
     document.getElementsByClassName("numbertext")[0].innerHTML =
         slideIndex + 1 + " / " + slides.length;
-    console.log(document.getElementById("slideshowImage").src);
     dots[slideIndex].className += " active";
     timer.reset();
 }
