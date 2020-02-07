@@ -27,7 +27,7 @@
 <body>
     <!-- NAVBAR HERE -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand uppercase" href="/home">Favor</a>
+        <a class="lowercase" id="nav-title" href="/home">Favor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,14 +35,15 @@
         <div class="flex nav-buttons">
             <a class="btn" href="/give">Give Service</a>
             <a class="btn" href="/request">Request Service</a>
-            <div class="right-nav">
+            <div class="flex right-nav">
                 <div class="circle flex" id="avatar">
-                    <i class="material-icons">menu</i>
+                    <i class="material-icons large-icon">account_circle</i>
                 </div>
+                <i class="material-icons large-icon">menu</i>
             </div>
         </div>
     </nav>
-    <div>
+    <div class="page">
         {% block pageContent %}{% endblock pageContent %}
     </div>
 </body>
