@@ -7,34 +7,17 @@
 {% endblock pageHeader%} {% block pageContent %}
 <div class="page">
     <!-- SLIDESHOW START -->
-    <div class="slideshow-container">
-        <div class="mySlides">
-            <div class="numbertext"></div>
-            <img
-                src=""
-                style="height: 600px; width: 100%"
-                id="slideshowImage"
-                class=""
-            />
-            <div class="text">Caption Two</div>
-        </div>
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br />
-
-    <div style="text-align:center" id="slideshowDots"></div>
+    <!-- {% block "slideshow" %} {% endblock "slideshow" %} -->
+    {% include 'slideshow.html' %}
     <!-- SLIDESHOW END -->
 </div>
+{% endblock pageContent%}
 
 <!-- <footer class="footer-position">
     Project made possible with
     <a class="medium-text" href="https://hack4impact.org//">hack4impact</a>
 </footer> -->
-<scripts>
-    <script type="text/javascript">
-        var DJANGO_STATIC_URL = "{{ STATIC_URL }}";
-    </script>
-    <script src="{% static 'js/slideshow.js' %}"></script>
-</scripts>
-{% endblock pageContent%}
+{% block pageScripts %} 
+{% block slideshowScripts %} 
+{% endblock slideshowScripts %} 
+{% endblock pageScripts %}

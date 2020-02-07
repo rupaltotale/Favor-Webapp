@@ -87,6 +87,9 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"
         ></script>
+        <script type="text/javascript">
+            var DJANGO_STATIC_URL = "{{ STATIC_URL }}";
+        </script>
+        <script src="{% static 'js/slideshow.js' %}"></script>
     </scripts>
-    {% block pageScripts %} {% endblock pageScripts %}
 </html>
