@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import SignUpForm
 
 # Signup/Login stuff
@@ -18,7 +18,7 @@ def signup(request):
          raw_password = form.cleaned_data.get('password1')
          user = authenticate(username=username, password=raw_password)
          login(request, user)
-         return redirect('/add_individual_hours')
+         return redirect('/')
       else:
          print("form not valid")
    else:
