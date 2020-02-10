@@ -19,6 +19,6 @@ from favorApp import views
 
 urlpatterns = [
     path('', views.home),
-    path('/', views.home),
+    path('test/', views.test),
     path('admin/', admin.site.urls),
 ]

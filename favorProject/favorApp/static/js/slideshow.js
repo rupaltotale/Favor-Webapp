@@ -37,7 +37,9 @@ function Timer(fn, t) {
 }
 
 var timer = new Timer(function() {
-    showSlides((slideIndex += 1));
+    if (window.location.pathname === "/" || window.location.pathname === "/home") {
+        showSlides((slideIndex += 1));
+    }
 }, 5000);
 
 showDots();

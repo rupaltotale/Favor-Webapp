@@ -10,14 +10,9 @@
     <!-- {% block "slideshow" %} {% endblock "slideshow" %} -->
     {% include 'slideshow.html' %}
     <!-- SLIDESHOW END -->
+    <a href="test">Test</a>
 </div>
 {% endblock pageContent%}
-
-<!-- <footer class="footer-position">
-    Project made possible with
-    <a class="medium-text" href="https://hack4impact.org//">hack4impact</a>
-</footer> -->
-{% block pageScripts %} 
-{% block slideshowScripts %} 
-{% endblock slideshowScripts %} 
+{% block pageScripts %}
+<script src="{% static 'js/slideshow.js' %}"></script>
 {% endblock pageScripts %}
