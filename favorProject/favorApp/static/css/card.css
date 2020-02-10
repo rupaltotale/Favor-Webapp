@@ -1,10 +1,4 @@
-:root {
-    --card-list-size: 75%;
-    --num-grid-columns: 3;
-}
-
 .my-card {
-    /* width: 100%;width: calc(var(--card-list-size) / var(--num-grid-columns)); */
     height: 100%;
     position: relative;
     padding: 2% 2%;
@@ -17,27 +11,22 @@
 }
 
 .my-card:hover {
-    box-shadow: 0px 4px 2px -2px rgba(0,0,0,0.2), 
-        0px 2px 2px 0px rgba(0,0,0,0.14), 
-        0px 2px 6px 0px rgba(0,0,0,0.12);
-    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 2px -2px rgba(0,0,0,0.4), 
+        0px 2px 2px 0px rgba(0,0,0,0.3), 
+        0px 2px 6px 0px rgba(0,0,0,0.2);
+    background-color: rgba(14, 58, 153, 0.1);
+    transform: scale(1.05);
 }
 
 .my-card-title {
-    max-width: 80%;
+    max-width: 85%;
 }
 
 .my-card-desc {
-    font-size: 1em;
-}
-
-.my-card-list {
-    display: grid;
-    padding: 5px;
-    width: var(--card-list-size);
-    grid-row-gap: 5%;
-    grid-column-gap: 2%;
-    grid-template-columns: repeat(3, calc(var(--card-list-size) / var(--num-grid-columns)));
+    font-size: 0.9em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 
 .num-favors {
@@ -45,4 +34,16 @@
     position: absolute;
     right: 3%;
     top: 0;
+}
+
+.small-text {
+    font-size: 13px;
+}
+
+.medium-text {
+    font-size: 15px;
+}
+
+.icon-text-container {
+    margin-top: 3%;
 }

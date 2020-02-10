@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load static %} {% block pageHeader %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/card_list.css' %}" />
+{% endblock pageHeader%}
+{% block pageContent %}
+    <div class="title-container">
+        <h2 class="my-card-list-title">Available Services</h2>
+    </div>
+    <div class="my-card-list">
+        {% for card in cards %}
+            <div class="my-card">
+                <h5 class="my-card-title">{{ card.title }}</h5>
+                <p class="red num-favors">-{{ card.favors }}</p>
+                <p class="my-card-desc">{{ card.description }}</p>
+                <div class="flex">
+                    <div class="icon-text-container flex">
+                        <i class="material-icons">account_box</i>
+                        <p class="small-text">{{ card.username }}</p>
+                    </div>
+                    <div class="icon-text-container flex right-align-margin">
+                        <i class="material-icons">date_range</i>
+                        <p class="small-text">{{ card.date }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock pageContent %}
