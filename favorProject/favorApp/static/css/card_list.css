@@ -1,0 +1,30 @@
+:root {
+    --card-list-size: 70%;
+    --num-grid-columns: 3;
+    --grid-column-gap: 2%;
+}
+
+.title-container {
+    width: calc(var(--card-list-size) - (var(--num-grid-columns) * var(--grid-column-gap)));
+    text-align: center;
+}
+
+.my-card-list {
+    display: grid;
+    padding: 5px;
+    width: var(--card-list-size);
+    grid-row-gap: 10%;
+    grid-column-gap: var(--grid-column-gap);
+    grid-template-columns: repeat(var(--num-grid-columns), 25%);
+}
+
+.my-card-list-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    text-shadow: 0 4px 2px rgba(0, 0, 0, .15);
+    text-decoration: underline;
+}

@@ -20,4 +20,6 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.home),
+    path('give/', views.give),
+    path('test/', views.test)
 ]
