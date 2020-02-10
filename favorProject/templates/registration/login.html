@@ -1,0 +1,22 @@
+{% load static %}
+{% block pageHeader %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% endblock pageHeader%}
+
+{% block pageContent %}
+<div class="center-page center-text">
+   <img  src="{% static 'img/favor.png' %}"height="120px">
+    <h2 class="main-text custom-margins">Sign In</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="button-holder custom-margins">
+            <button class="btn btn-primary px-2 m-3" type="submit">Log In</button>
+            <a class="btn btn-primary px-2 m-3" href="/signup/" >Sign Up</a>
+        </div>
+    </form>
+</div> 
+
+{% endblock %}
