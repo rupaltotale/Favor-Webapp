@@ -18,7 +18,8 @@ def give(request):
     return render(request, 'give.html', {
         "cards" : [
             {
-                "title" : "Massage",
+                "id" : 1,
+                "title" : "Massage1",
                 "favors" : 2,
                 "description" : "2 hr massage in Cerro",
                 "username" : "John Casey",
@@ -26,7 +27,8 @@ def give(request):
                 "location" : "Cerro Vista"
             },
             {
-                "title" : "Fix Bike",
+                "id" : 2,
+                "title" : "Fix Bike1",
                 "favors" : 1,
                 "description" : "Will quickly fix your bike",
                 "username" : "Chuck Bartowski",
@@ -34,7 +36,8 @@ def give(request):
                 "location" : "University Union shop"
             },
             {
-                "title" : "Help with C Science Homework",
+                "id" : 3,
+                "title" : "Help with C Science Homework1",
                 "favors" : 1,
                 "description" : "Will look over code and help fix bugs or help get started on assignment",
                 "username" : "Morgan Grimes",
@@ -42,7 +45,8 @@ def give(request):
                 "location" : "CSL"
             },
             {
-                "title" : "Massage",
+                "id" : 4,
+                "title" : "Massage2",
                 "favors" : 2,
                 "description" : "2 hr massage in Cerro",
                 "username" : "John Casey",
@@ -50,7 +54,8 @@ def give(request):
                 "location" : "Cerro Vista"
             },
             {
-                "title" : "Fix Bike",
+                "id" : 5,
+                "title" : "Fix Bike2",
                 "favors" : 1,
                 "description" : "Will quickly fix your bike",
                 "username" : "Chuck Bartowski",
@@ -58,7 +63,8 @@ def give(request):
                 "location" : "University Union shop"
             },
             {
-                "title" : "Help with CS Homework",
+                "id" : 6,
+                "title" : "Help with CS Homework2",
                 "favors" : 1,
                 "description" : "Will look over code and help fix bugs or help get started on assignment",
                 "username" : "Morgan Grimes",
@@ -66,7 +72,8 @@ def give(request):
                 "location" : "CSL"
             },
             {
-                "title" : "Massage",
+                "id" : 7,
+                "title" : "Massage3",
                 "favors" : 2,
                 "description" : "2 hr massage in Cerro",
                 "username" : "John Casey",
@@ -74,7 +81,8 @@ def give(request):
                 "location" : "Cerro Vista"
             },
             {
-                "title" : "Fix Bike",
+                "id" : 8,
+                "title" : "Fix Bike3",
                 "favors" : 1,
                 "description" : "Will quickly fix your bike",
                 "username" : "Chuck Bartowski",
@@ -82,7 +90,17 @@ def give(request):
                 "location" : "University Union shop"
             },
             {
-                "title" : "Help with CS Homework",
+                "id" : 9,
+                "title" : "Help with CS Homework3",
+                "favors" : 1,
+                "description" : "Will look over code and help fix bugs or help get started on assignment",
+                "username" : "Morgan Grimes",
+                "date" : "2019-01-09",
+                "location" : "CSL"
+            },
+            {
+                "id" : 10,
+                "title" : "Help with CS Homework4",
                 "favors" : 1,
                 "description" : "Will look over code and help fix bugs or help get started on assignment",
                 "username" : "Morgan Grimes",
@@ -91,6 +109,22 @@ def give(request):
             },
         ]
     })
+
+
+def show_service(request):
+    id = request.GET.get("id")
+    if id == None:
+        return render(request, "give.html", status=400)
+
+    dic = {}
+    for val in ["title", "description", "username", "date", "location", "favors", "id"]:
+        dic[val] = request.GET.get(val)
+    print(dic)
+    return render(request, "service_info.html", {
+        "service_info" : dic
+    })
+
+
 def signup(request):
    if request.method == "POST":
       form = SignUpForm(request.POST)

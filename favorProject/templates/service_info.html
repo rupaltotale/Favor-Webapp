@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% load static %} {% block pageHeader %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/service_info.css' %}" />
+{% endblock pageHeader%}
+{% block pageContent %}
+    <div>
+        {{ service_info.title }}<br/>
+        {{ service_info.description }}<br/>
+        {{ service_info.date }}<br/>
+        {{ service_info.username }}<br/>
+        {{ service_info.location }}<br/>
+        {{ service_info.favors }}<br/>
+    </div>
+{% endblock pageContent %}
