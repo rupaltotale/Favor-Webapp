@@ -16,12 +16,11 @@ class AddFavorForm(ModelForm):
         exclude = []
         # fields = ["date"]
         help_texts = {
-            'date': _('Date of event, enter a date between now and 4 weeks.'),
+            'date': _('Enter a date between now and 4 weeks.'),
         }
         widgets = {'date': DateTimePickerInput()}
 
     def clean_date(self):
-        print("cleaning date")
         data = self.cleaned_data['date']
 
         # Check if a date is not in the past.

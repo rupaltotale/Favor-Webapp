@@ -158,16 +158,13 @@ def signup(request):
 def add_favor(request):
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-
-        # Create a new form instance:
-        form = AddFavorForm()
-
+        # Create a form instance and populate it with data from the request (binding):
+        form = AddFavorForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
             form.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/')
-
     # If this is a GET (or any other method) create the default form.
     else:
         form = AddFavorForm()
