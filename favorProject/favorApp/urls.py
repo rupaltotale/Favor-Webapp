@@ -21,5 +21,6 @@ from django.urls import path
 urlpatterns = [
     path('', views.home),
     path('give/', views.give),
+    path('give/view', views.show_service),
     path('test/', views.test)
 ]

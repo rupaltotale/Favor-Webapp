@@ -5,6 +5,9 @@
     border: 1px solid #888888;
     border-radius: 4px;
     cursor: pointer;
+    break-inside: avoid;
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;     
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 
         0px 1px 1px 0px rgba(0,0,0,0.14), 
         0px 1px 3px 0px rgba(0,0,0,0.12);
@@ -15,11 +18,14 @@
         0px 2px 2px 0px rgba(0,0,0,0.3), 
         0px 2px 6px 0px rgba(0,0,0,0.2);
     background-color: rgba(14, 58, 153, 0.1);
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0);
 }
 
 .my-card-title {
-    max-width: 85%;
+    width: 90%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .my-card-desc {
