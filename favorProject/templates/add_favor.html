@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block pageContent %}
+  <h3 class="display-4 text-center">Post a favor</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Add Favor</button>
+  </form>
+{% endblock %}
