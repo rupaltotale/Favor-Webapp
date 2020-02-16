@@ -5,14 +5,20 @@ from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     return render(request, 'home.html')
+
+def landing(request):
+    return render(request, 'landing.html')
 
 def test(request):
     # some code
     return render(request, 'test.html')
 
+@login_required
 def give(request):
     # some code
     return render(request, 'give.html', {
@@ -110,7 +116,7 @@ def give(request):
         ]
     })
 
-
+@login_required
 def show_service(request):
     id = request.GET.get("id")
     if id == None:
