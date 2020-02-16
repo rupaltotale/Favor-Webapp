@@ -6,7 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-import datetime
+from django.utils import timezone
+from bootstrap_datepicker_plus import DateTimePickerInput
 
 
 class AddFavorForm(ModelForm):
@@ -17,26 +18,19 @@ class AddFavorForm(ModelForm):
         help_texts = {
             'date': _('Date of event, enter a date between now and 4 weeks.'),
         }
-        # widgets = {'myDateField': forms.DateInput(
-        #     attrs={'id': 'datetimepicker12'})
-        # }
-        # error_messages = {
-        #     'name': {
-        #         'max_length': _("This writer's name is too long."),
-        #     },
-        # }
+        widgets = {'date': DateTimePickerInput()}
 
     def clean_date(self):
         print("cleaning date")
         data = self.cleaned_data['date']
 
         # Check if a date is not in the past.
-        if data < datetime.date.today():
+        if data < timezone.now():
             raise ValidationError(
                 _('Invalid date - start date of event in past'))
 
         # Check if a date is in the allowed range (+4 weeks from today).
-        if data > datetime.date.today() + datetime.timedelta(weeks=4):
+        if data > timezone.now() + timezone.timedelta(weeks=4):
             raise ValidationError(
                 _('Invalid date - start date more than 4 weeks ahead'))
 

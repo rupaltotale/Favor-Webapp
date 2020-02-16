@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'favorApp.apps.FavorappConfig',
     'crispy_forms',
+    "bootstrap4",
+    "bootstrap_datepicker_plus",
 ]
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
