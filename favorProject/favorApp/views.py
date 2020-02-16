@@ -159,8 +159,8 @@ def add_favor(request):
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
-        # Create a form instance and populate it with data from the request (binding):
-        form = AddFavorForm(request.POST)
+        # Create a new form instance:
+        form = AddFavorForm()
 
         # Check if the form is valid:
         if form.is_valid():
