@@ -23,4 +23,5 @@ urlpatterns = [
     path('give/', views.give),
     path('give/view', views.show_service),
     path('landing/', views.landing, name="landing"),
+    path('user/', views.show_profile_page, name="show_profile_page"),
 ]

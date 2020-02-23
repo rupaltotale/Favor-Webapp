@@ -2,13 +2,26 @@
 {% block pageHeader %} 
 <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/slideshow.css' %}" />
+<link
+   rel="stylesheet"
+   type="text/css"
+   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+/>
 {% endblock pageHeader%}
 
 {% block pageContent %}
-<body class="text-center center-main">
-   <h1 class="main-text"></h1>
-   <img  src="{% static 'img/favor.png' %}"height="120px">
-   <p class="secondary-text">Helping each other help each other.</p>
-   <a class="btn big-btn btn-primary" href="/login/">Get Started</a>
+<body>
+   <div class="container text-center center-main">
+      <img src="{% static 'images/logo.png' %}" style="height:120px;">
+      <p class="secondary-text">Helping each other help each other.</p>
+      {% include 'slideshow.html' %}
+      <a class="btn big-btn btn-primary" href="/login/">Get Started</a>
+   </div>
+   <scripts>
+   {% block pageScripts %}
+   <script src="{% static 'js/slideshow.js' %}"></script>
+   {% endblock pageScripts %}
+   </scripts>
 </body>
 {% endblock pageContent%}

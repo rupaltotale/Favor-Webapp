@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, AddFavorForm
 from django.http import HttpResponseRedirect
-from favorApp.models import Favor
-
+from .models import Favor
 
 # Signup/Login stuff
 from django.contrib.auth import login, authenticate
@@ -66,7 +65,7 @@ def add_favor(request):
         if form.is_valid():
             form.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/user')
     # If this is a GET (or any other method) create the default form.
     else:
         form = AddFavorForm()
@@ -76,3 +75,13 @@ def add_favor(request):
     }
 
     return render(request, 'add_favor.html', context)
+
+
+def show_profile_page(request):
+    current_user = request.user
+    favors = Favor.objects.all().filter(owner=request.user)
+    context = {
+        'user' : current_user,
+        'favors': favors,
+    }
+    return render(request, 'profile.html', context)
