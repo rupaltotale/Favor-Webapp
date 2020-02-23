@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% load static %} {% block pageHeader %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% endblock pageHeader%}
+{% block pageContent %}
+    <div class="text-center center-main">
+      <h2 class="main-text">My Account</h2>
+      <div class="col-md-3">
+         <img src="{% static 'img/profile.png' %}" height="200px">
+         <h4>{{ user.username }}</h4>
+      </div>
+      <div class="col-md-9">
+         <h2 class="main-text">Favors I'm Offering</h2>
+         <table class="table table-striped table-bordered table-hover" style="width:90%">
+            <thead class="custom">
+                <tr>
+                    {% if user.is_staff %}
+                        <th scope="col">Username</th>
+                    {% endif %}
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in favors %}
+                <tr>
+                    {% if user.is_staff %}
+                        <td>{{ f.owner }}</td>
+                    {% endif %}
+                    <td>{{ f.title }}</td>
+                    <td>{{ f.hours }}</td>
+                    <td>{{ f.number_of_favors }} favors</td>
+                    <td>{{ f.location }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+         <div class="button-holder custom-margins">
+            <a href="/add-favor/"><button class="btn wide-btn-2 btn-primary">Add Favor</button></a>
+          </div>
+      </div>
+    </div>
+{% endblock pageContent %}
