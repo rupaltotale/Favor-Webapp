@@ -3,10 +3,10 @@ var nextSlideTimer;
 const slides = [
     {
         url: "fixBike.jpg",
-        description: "Fix a bike"
+        description: "Get a bike fixed..."
     },
-    { url: "massage.jpg", description: "Massage" },
-    { url: "volunteer.jpg", description: "Volunteer" }
+    { url: "massage.jpg", description: "Or a massage..." },
+    { url: "volunteer.jpg", description: "And sign up to volunteer!" }
 ];
 
 function Timer(fn, t) {
@@ -37,9 +37,7 @@ function Timer(fn, t) {
 }
 
 var timer = new Timer(function() {
-    if (window.location.pathname === "/" || window.location.pathname === "/home") {
-        showSlides((slideIndex += 1));
-    }
+    showSlides((slideIndex += 1));
 }, 5000);
 
 showDots();
@@ -73,11 +71,12 @@ function showSlides(n) {
     for (var i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
-    image.src = DJANGO_STATIC_URL + "static/images/" + slides[slideIndex].url;
+    console.log("*** Image source is", image.src)
+    image.src = "http://127.0.0.1:8000/static/images/" + slides[slideIndex].url;
 
     document.getElementsByClassName("mySlides")[0].style.display = "block";
-    document.getElementsByClassName("numbertext")[0].innerHTML =
-        slideIndex + 1 + " / " + slides.length;
+    document.getElementById("caption").innerHTML =
+    slides[slideIndex].description;
     dots[slideIndex].className += " active";
     timer.reset();
 }

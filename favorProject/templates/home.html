@@ -1,18 +1,14 @@
 {% extends "base.html" %} {% load static %} {% block pageHeader %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/slideshow.css' %}" />
 <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
 />
 {% endblock pageHeader%} {% block pageContent %}
 <div class="page">
-    <!-- SLIDESHOW START -->
-    <!-- {% block "slideshow" %} {% endblock "slideshow" %} -->
-    {% include 'slideshow.html' %}
-    <!-- SLIDESHOW END -->
-    <a href="test">Test</a>
 </div>
 {% endblock pageContent%}
+
 {% block pageScripts %}
 <script src="{% static 'js/slideshow.js' %}"></script>
 {% endblock pageScripts %}
