@@ -3,7 +3,6 @@
     padding: 2% 2%;
     border: 1px solid #888888;
     border-radius: 4px;
-    cursor: pointer;
     break-inside: avoid;
         -webkit-column-break-inside: avoid;
         page-break-inside: avoid;     
@@ -36,10 +35,6 @@
 .medium-text {
     font-size: 15px;
 }
-
-/* .icon-text-container {
-    width: 100%;
-} */
 
 .icons-container {
     overflow: hidden;

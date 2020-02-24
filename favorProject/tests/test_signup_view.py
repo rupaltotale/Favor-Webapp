@@ -36,7 +36,7 @@ class SignupViewTests(TestCase):
       self.assertTemplateUsed(response, expected_template)
 
 
-   def test_view_with_valid_singup_request(self):
+   def test_view_with_valid_signup_request(self):
       expected_status_code = 302
       expected_redirect_url = reverse('home')
       test_username = "TEST"
@@ -62,7 +62,7 @@ class SignupViewTests(TestCase):
          self.assertTrue(False)
 
 
-   def test_view_with_invalid_singup_request(self):
+   def test_view_with_invalid_signup_request(self):
       expected_status_code = 200
 
       response = self.client.post(self.url, data={})

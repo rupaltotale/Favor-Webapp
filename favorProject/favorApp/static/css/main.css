@@ -1,6 +1,6 @@
 :root {
     --primary-color: rgba(128, 0, 255, 0.4);
-    --secondary-color: rgba(128, 0, 255, 0.8);
+    --secondary-color: rgb(104, 58, 146);
 }
 
 p {
@@ -40,6 +40,7 @@ p {
 .nav-buttons > a:hover {
     color: black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-decoration: none;
 }
 
 .right-nav {
@@ -49,8 +50,7 @@ p {
 }
 
 #avatar {
-    padding: 10px;
-    margin-right: 20%;
+    padding: 3px;
 }
 
 .large-icon {
@@ -108,7 +108,7 @@ p {
 }
 
 .right-align-margin {
-    margin-left: auto !important;
+    margin-left: auto;
 }
 
 .full-width {

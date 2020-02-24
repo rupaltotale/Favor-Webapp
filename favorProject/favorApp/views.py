@@ -7,7 +7,6 @@ from .models import Favor
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
 
 
 @login_required
@@ -17,7 +16,6 @@ def home(request):
 
 def landing(request):
     return render(request, 'landing.html')
-
 
 
 @login_required
@@ -34,9 +32,10 @@ def show_service(request):
     if id == None:
         return render(request, "give.html", status=400)
 
-    return render(request, "service_info.html", {
-        "service_info": Favor.objects.get(id=id)
-    })
+    context = {
+        "favor" : Favor.objects.get(id=id)
+    }
+    return render(request, "service_info.html", context)
 
 
 def signup(request):
@@ -56,6 +55,7 @@ def signup(request):
     return render(request, "signup.html", {"form": form})
 
 
+@login_required
 def add_favor(request):
     # If this is a POST request then process the Form data
     if request.method == 'POST':

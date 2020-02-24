@@ -5,6 +5,7 @@
 
 .general-card-container {
     width: var(--card-list-size);
+    margin: auto;
 }
 
 .my-card-list > a {

@@ -9,34 +9,28 @@
         </div>
         <div class="my-card-list">
             {% for card in cards %}
-                <a 
-                    href="/give/view?id={{card.id}}"
-                >
-                    <div 
-                        class="my-card card-row-separator"
-                    >
-                        <h5 class="my-card-title">{{ card.title }}</h5>
-                        <p class="num-favors">Cost: {{ card.number_of_favors }} favor(s)</p>
-                        <p class="my-card-desc">{{ card.description }}</p>
-                        <div class="flex-start" style="width: 90%;">
-                            <div class="flex-start icons-container" style="width: 70%;">
-                                <div class="icon-text-container flex-start" style="width: 60%;">
-                                    <i class="material-icons icon-for-text">account_box</i>
-                                    <p class="medium-text ellipses-no-wrap">{{ card.owner }}</p>
-                                </div>
-                                <div class="icon-text-container flex-start" style="width: 100%;">
-                                    <i class="material-icons icon-for-text">location_on</i>
-                                    <p class="medium-text ellipses-no-wrap">{{ card.location }}</p>
-                                </div>
-                                <div class="icon-text-container flex-start" style="width: 100%;">
-                                    <i class="material-icons icon-for-text">date_range</i>
-                                    <p class="medium-text ellipses-no-wrap">{{ card.date }}</p>
-                                </div>
+                <div class="my-card card-row-separator">
+                    <h5 class="my-card-title">{{ card.title }}</h5>
+                    <p class="num-favors">Cost: {{ card.number_of_favors }} favor(s)</p>
+                    <p class="my-card-desc">{{ card.description }}</p>
+                    <div class="flex-start" style="width: 90%;">
+                        <div class="icons-container" style="width: 70%;">
+                            <div class="icon-text-container flex-start" style="width: 60%;">
+                                <i class="material-icons icon-for-text">account_box</i>
+                                <p class="medium-text ellipses-no-wrap">{{ card.owner }}</p>
                             </div>
-                            <button type="button" class="btn secondary-background white right-align-margin">Sign Up</button>
+                            <div class="icon-text-container flex-start" style="width: 100%;">
+                                <i class="material-icons icon-for-text">location_on</i>
+                                <p class="medium-text ellipses-no-wrap">{{ card.location }}</p>
+                            </div>
+                            <div class="icon-text-container flex-start" style="width: 100%;">
+                                <i class="material-icons icon-for-text">date_range</i>
+                                <p class="medium-text ellipses-no-wrap">{{ card.date }}</p>
+                            </div>
                         </div>
+                        <a href="/give/view?id={{card.id}}" type="button" class="btn secondary-background white right-align-margin">Sign Up</a>
                     </div>
-                </a>
+                </div>
             {% endfor %}
         </div>
     </div>
