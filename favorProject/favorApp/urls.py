@@ -22,7 +22,6 @@ urlpatterns = [
     path('', views.home),
     path('give/', views.give),
     path('give/view', views.show_service),
-    path('test/', views.test),
     path('landing/', views.landing, name="landing"),
     path('user/', views.show_profile_page, name="show_profile_page"),
 ]

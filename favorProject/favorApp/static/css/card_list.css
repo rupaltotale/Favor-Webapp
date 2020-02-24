@@ -1,12 +1,11 @@
 :root {
-    --card-list-size: 60%;
-    --num-grid-columns: 3;
+    --card-list-size: 80%;
     --grid-column-gap: 2%;
 }
 
 .general-card-container {
-    margin-left: 2%;
     width: var(--card-list-size);
+    margin: auto;
 }
 
 .my-card-list > a {
@@ -30,7 +29,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    column-count: var(--num-grid-columns);
     column-gap: var(--grid-column-gap);
 }
 

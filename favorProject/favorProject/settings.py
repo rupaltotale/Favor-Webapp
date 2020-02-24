@@ -51,6 +51,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=favorApp',
+    '--verbosity=2',
+    '--exe'
 ]
 
 BOOTSTRAP4 = {
