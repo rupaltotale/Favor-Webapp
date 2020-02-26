@@ -19,9 +19,8 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('', views.home),
-    path('give/', views.give),
-    path('give/view', views.show_service),
+    path('', views.show_services),
     path('landing/', views.landing, name="landing"),
+    path('add-favor/', views.add_favor, name='add-favor'),
     path('user/', views.show_profile_page, name="show_profile_page"),
 ]
