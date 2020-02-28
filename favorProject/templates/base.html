@@ -62,7 +62,18 @@
             <a href="/request">Request Service</a>
             <div class="flex right-nav">
                 <div class="circle flex" id="avatar">
-                    <a href="/user">
+                    <a
+                        type="button"
+                        class="circle"
+                        data-toggle="popover"
+                        data-html=true
+                        data-placement="bottom"
+                        data-content="
+                            <a style='height: 10px;'></a>
+                            <a class='avatar-content' href='/user'>Profile</a>
+                            <a class='avatar-content' href='/logout'>Logout</a>
+                        "
+                    >
                         <i class="material-icons large-icon">account_circle</i>
                     </a>
                 </div>
@@ -90,6 +101,11 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"
         ></script>
+        <script>
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            })
+        </script>
         {% block pageScripts %}
         {% endblock pageScripts %}
     </scripts>
