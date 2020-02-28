@@ -13,6 +13,19 @@ class UserFactory(factory.Factory):
     password = factory.PostGenerationMethodCall('set_password', 'password')
 
 
+class AdminFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = User
+    
+    email = 'admin@admin.com'
+    username = 'admin'
+    password = 'adm1n'
+
+    is_superuser = True
+    is_staff = True
+    is_active = True
+    
+
 class FavorFactory(factory.Factory):
     class Meta:
         model = Favor
