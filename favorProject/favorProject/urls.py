@@ -21,13 +21,11 @@ from django.urls import include
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('', views.home),
     path('admin/', admin.site.urls),
     path("signup/", views.signup, name="signup"),
     path("", include("django.contrib.auth.urls")),
     path("", include("favorApp.urls")),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('add-favor/', views.add_favor, name='add-favor'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

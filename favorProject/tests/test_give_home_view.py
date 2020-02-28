@@ -1,20 +1,15 @@
 from django.test import TestCase
-from tests.factories import *
+from tests.factories import UserFactory
 from django.urls import reverse
-from favorApp.models import Favor
 
-class ShowServiceViewTests(TestCase):
+class GiveOnHomeViewTests(TestCase):
    @classmethod
    def setUpTestData(cls):
       print("Running FavorGiveViewTest...")
+      cls.url = "/"
       user = UserFactory()
       user.save()
       cls.user = user
-      favor = FavorFactory(
-         owner=user
-      )
-      favor.save()
-      cls.url = "/give/view?id={}".format(favor.id)
 
 
    def setUp(self):
@@ -33,13 +28,13 @@ class ShowServiceViewTests(TestCase):
 
    def test_view_redirects_on_not_logged_in(self):
       expected_status_code = 302
-      expected_redirect_url = reverse('login') + "?next="
+      expected_redirect_url = reverse('login') + "?next=/"
 
       self.client.logout()
       response = self.client.get(self.url)
 
       self.assertEqual(expected_status_code, response.status_code)
-      self.assertTrue(expected_redirect_url in response.url)
+      self.assertEqual(expected_redirect_url, response.url)
 
 
    def test_view_uses_base_template(self):
@@ -54,7 +49,7 @@ class ShowServiceViewTests(TestCase):
 
    def test_view_uses_own_template(self):
       expected_status_code = 200
-      expected_template = "service_info.html"
+      expected_template = "home.html"
 
       response = self.client.get(self.url)
 
