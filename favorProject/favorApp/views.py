@@ -7,11 +7,8 @@ from .models import Favor
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
-
-@login_required
-def home(request):
-    return render(request, 'home.html')
+from django.views.generic import TemplateView, ListView
+from django.db.models import Q # new
 
 
 def landing(request):
@@ -19,23 +16,17 @@ def landing(request):
 
 
 @login_required
-def give(request):
-    # some code
-    return render(request, 'give.html', {
-        "cards": Favor.objects.all()
+def show_services(request):
+    query = request.GET.get('q')
+    cards = Favor.objects.all();
+    if query:
+        cards = Favor.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+    return render(request, 'home.html', {
+        "cards": cards,
+        "search_term": query if query else ""
     })
-
-
-@login_required
-def show_service(request):
-    id = request.GET.get("id")
-    if id == None:
-        return render(request, "give.html", status=400)
-
-    context = {
-        "favor" : Favor.objects.get(id=id)
-    }
-    return render(request, "service_info.html", context)
 
 
 def signup(request):
