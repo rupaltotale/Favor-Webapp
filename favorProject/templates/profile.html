@@ -17,28 +17,33 @@
                     {% if user.is_staff %}
                         <th scope="col">Username</th>
                     {% endif %}
-                    <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Location</th>
+                    <th scope="col">Edit/Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for f in favors %}
                 <tr>
-                    {% if user.is_staff %}
-                        <td>{{ f.owner }}</td>
-                    {% endif %}
                     <td>{{ f.title }}</td>
                     <td>{{ f.description }}</td>
                     <td>{{ f.number_of_favors }} favors</td>
                     <td>{{ f.location }}</td>
+                    <td>
+                    <a href="{% url "edit_favor" f.id %}">
+                        <button class="btn btn-info">Edit Favor</button>
+                    </a>
+                    <a href="/delete/<favor-id>"></a>
+                        <button class="btn btn-danger">Delete Favor</button>
+                    </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
          </table>
          <div class="button-holder custom-margins">
-            <a href="/add-favor/"><button class="btn wide-btn-2 btn-primary">Add Favor</button></a>
+            <a href="/add-favor/"><button class="btn wide-btn-2 btn-primary">Add New Favor</button></a>
           </div>
       </div>
     </div>

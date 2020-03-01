@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
 from django.http import HttpResponseRedirect
 from .models import Favor
@@ -70,9 +70,19 @@ def add_favor(request):
 
 def show_profile_page(request):
     current_user = request.user
-    favors = Favor.objects.all().filter(owner=request.user)
+    favors = Favor.objects.all().filter(owner=request.user).order_by("-date")
     context = {
         'user' : current_user,
         'favors': favors,
     }
     return render(request, 'profile.html', context)
+
+
+def edit_favor(request, pk):
+    current_favor = get_object_or_404(Favor, pk=pk)
+    form = AddFavorForm(request.POST or None, instance=current_favor)
+    if form.is_valid():
+        form.save()
+        return redirect('show_profile_page')
+    return render(request, "edit_favor.html", {'form' : form})
+

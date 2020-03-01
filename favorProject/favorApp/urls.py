@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.show_services),
     path('landing/', views.landing, name="landing"),
     path('add-favor/', views.add_favor, name='add-favor'),
+    path('edit/<int:pk>', views.edit_favor, name='edit_favor'),
     path('user/', views.show_profile_page, name="show_profile_page"),
 ]
