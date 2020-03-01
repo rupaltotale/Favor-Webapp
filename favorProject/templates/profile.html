@@ -20,7 +20,8 @@
                     <th scope="col">Description</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Edit/Delete</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,12 +32,14 @@
                     <td>{{ f.number_of_favors }} favors</td>
                     <td>{{ f.location }}</td>
                     <td>
-                    <a href="{% url "edit_favor" f.id %}">
-                        <button class="btn btn-info">Edit Favor</button>
-                    </a>
-                    <a href="/delete/<favor-id>"></a>
-                        <button class="btn btn-danger">Delete Favor</button>
-                    </a>
+                        <a href="{% url 'edit_favor' f.id %}">
+                            <button class="btn btn-info">Edit Favor</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_favor' f.id %}"></a>
+                            <button class="btn btn-danger">Delete Favor</button>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
