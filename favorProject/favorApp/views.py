@@ -92,7 +92,5 @@ def delete_favor(request, pk):
     if request.method == 'POST':
         current_favor.delete()
         return redirect('show_profile_page')
-    else:
-        return HttpResponseNotAllowed(request)
-   # return render(request, "delete_favor.html", {'object' : current_favor})
+    return render(request, "delete_favor.html", {'object' : current_favor})
 
