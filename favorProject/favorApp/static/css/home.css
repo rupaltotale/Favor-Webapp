@@ -1,5 +1,5 @@
 .search_bar {
-  /* width: var(--card-list-size); */
+  width: var(--card-list-size);
   margin: auto;
   margin-top: 10px;
 }
