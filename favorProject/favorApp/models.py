@@ -10,7 +10,6 @@ class Favor(models.Model):
     date = models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=False)
     location = models.CharField(max_length=256, blank=False)
-    
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     volunteer_event = models.BooleanField(default=False)
