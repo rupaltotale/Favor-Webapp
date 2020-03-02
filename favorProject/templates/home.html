@@ -6,15 +6,26 @@
 {% endblock pageHeader%}
 {% block pageContent %}
     
+    <div class="title-container">
+        <h2 class="display-4 text-center">Available Favors</h2>
+    </div>
     <div class="md-form mt-0">
-        <form action="" method="get">
-            <input class="form-control search_bar" name="q" type="text" placeholder="Search..." value={{ search_term }}>
+        <form action="" method="get" id="search_form">
+            <input 
+                class="form-control search_bar" 
+                id="search_input"
+                name="q" 
+                type="text" 
+                placeholder="Search..." 
+                value={{ search_term }}
+                >
+            <small id="textHelpBlock" class="form-text text-muted text-center">
+                Filter listing of favors by name and descriprion. Listings are filtered as you type. 
+            </small>
+            {% comment %} <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> {% endcomment %}
         </form>
     </div>
     <div class="general-card-container">
-        <div class="title-container">
-            <h2 class="my-card-list-title">Available Favors</h2>
-        </div>
         <div class="my-card-list">
             {% for card in cards %}
                 <div class="my-card card-row-separator">
@@ -36,10 +47,51 @@
                                 <p class="medium-text ellipses-no-wrap">{{ card.date }}</p>
                             </div>
                         </div>
-                        <a href="/view-service?id={{card.id}}" type="button" class="btn secondary-background white right-align-margin">Sign Up</a>
+                        <button 
+                            {% comment %} href="/view-service?id={{card.id}}"  {% endcomment %}
+                            {% comment %} type="button"  {% endcomment %}
+                            class="btn secondary-background white right-align-margin signup-button"
+                            {% comment %} onclick="signUp({{card.id}})" {% endcomment %}
+                            id="{{card.id}}"
+                            >
+                            Sign Up
+                        </button>
                     </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-warning text-center" role="alert">
+                    Sorry, no favors matched your search.
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endblock pageContent %}
+{% block pageScripts %}
+<script>
+    $(document).ready(
+        function(){
+            input = $("#search_input")
+            input.focus();
+            var tmpStr = input.val();
+            input.val('');
+            input.val(tmpStr);
+            timeout = null;
+            $("#search_input").on("keydown", function() {
+                var value = $(this).val().toLowerCase();
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    $('form#search_form').submit();
+                }, 500);
+            });
+        }
+        
+    );
+    $('.signup-button').on('click',function() {
+        $(this).prop("disabled",true);
+        this.innerHTML = `Pending <i class="fas fa-check"></i>`
+        // $(this).css("background-color","rgba(0, 0, 0, 0.5)");
+        //alert(this.id);
+        $(this).addClass("disabled btn-success")
+    });
+</script>
+{% endblock pageScripts %}
