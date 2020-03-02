@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from .models import Favor
 
 # Signup/Login stuff
@@ -67,12 +67,30 @@ def add_favor(request):
 
     return render(request, 'add_favor.html', context)
 
-
+@login_required
 def show_profile_page(request):
     current_user = request.user
-    favors = Favor.objects.all().filter(owner=request.user)
+    favors = Favor.objects.all().filter(owner=request.user).order_by("-date")
     context = {
         'user' : current_user,
         'favors': favors,
     }
     return render(request, 'profile.html', context)
+
+@login_required
+def edit_favor(request, pk):
+    current_favor = get_object_or_404(Favor, pk=pk)
+    form = AddFavorForm(request.POST or None, instance=current_favor)
+    if form.is_valid():
+        form.save()
+        return redirect('show_profile_page')
+    return render(request, "edit_favor.html", {'form' : form})
+
+@login_required
+def delete_favor(request, pk):
+    current_favor = get_object_or_404(Favor, pk=pk)
+    if request.method == 'POST':
+        current_favor.delete()
+        return redirect('show_profile_page')
+    return render(request, "delete_favor.html", {'object' : current_favor})
+

@@ -23,4 +23,6 @@ urlpatterns = [
     path('landing/', views.landing, name="landing"),
     path('add-favor/', views.add_favor, name='add-favor'),
     path('user/', views.show_profile_page, name="show_profile_page"),
+    path('edit/<int:pk>', views.edit_favor, name='edit_favor'),
+    path('delete/<int:pk>', views.delete_favor, name='delete_favor'),
 ]
