@@ -76,7 +76,7 @@
             input.val('');
             input.val(tmpStr);
             timeout = null;
-            $("#search_input").on("keypress", function() {
+            $("#search_input").on("keydown", function() {
                 var value = $(this).val().toLowerCase();
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
