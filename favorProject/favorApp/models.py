@@ -12,6 +12,7 @@ class Favor(models.Model):
     location = models.CharField(max_length=256, blank=False)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
+    pendingUsers = models.ManyToManyField(User, related_name='pending_users')
     volunteer_event = models.BooleanField(default=False)
     requester_signed = models.BooleanField(default=False)
     giver_signed = models.BooleanField(default=False)
