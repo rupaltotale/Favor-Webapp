@@ -1,0 +1,3 @@
+language: python
+install: pip3 install --upgrade pip
+script: python3 manage.py test
