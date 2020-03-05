@@ -46,16 +46,20 @@
                                 <i class="material-icons icon-for-text">date_range</i>
                                 <p class="medium-text ellipses-no-wrap">{{ card.date }}</p>
                             </div>
+                            {% for user in card.pendingUsers.all %}
+                                <li>{{ user }}</li>
+                            {% endfor %}
                         </div>
-                        <button 
-                            {% comment %} href="/view-service?id={{card.id}}"  {% endcomment %}
-                            {% comment %} type="button"  {% endcomment %}
-                            class="btn secondary-background white right-align-margin signup-button"
-                            {% comment %} onclick="signUp({{card.id}})" {% endcomment %}
-                            id="{{card.id}}"
-                            >
-                            Sign Up
-                        </button>
+                        <form action="" method="POST"> {% csrf_token %} 
+                            <input type='hidden' value='{{card.id}}' name='card_id'>
+                            <button 
+                                class="btn secondary-background white right-align-margin signup-button"
+                                value="{{card.id}}"
+                                type="submit"
+                                >
+                                Sign Up
+                            </button>
+                        </form>
                     </div>
                 </div>
             {% empty %}
@@ -87,9 +91,11 @@
         
     );
     $('.signup-button').on('click',function() {
+        var $formId = $(this).parents('form');
         $(this).prop("disabled",true);
-        this.innerHTML = `Pending <i class="fas fa-check"></i>`
-        $(this).addClass("disabled btn-success")
+        this.innerHTML = `Pending <i class="fas fa-check"></i>`;
+        $(this).addClass("disabled btn-success");
+        $formId.trigger('submit');
     });
 </script>
 {% endblock pageScripts %}

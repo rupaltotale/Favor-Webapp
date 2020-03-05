@@ -9,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q # new
+from django.http import JsonResponse
+
 
 
 def landing(request):
@@ -19,6 +21,12 @@ def landing(request):
 def show_services(request):
     query = request.GET.get('q')
     cards = Favor.objects.all();
+    current_user = request.user
+    if request.method == "POST":
+        # print("Updating object: ", request.id)
+        card_id = request.POST.get('card_id')
+        favor = Favor.objects.get(id=card_id)
+        favor.pendingUsers.add(current_user) 
     if query:
         cards = Favor.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
@@ -27,7 +35,6 @@ def show_services(request):
         "cards": cards,
         "search_term": query if query else ""
     })
-
 
 def signup(request):
     if request.method == "POST":
