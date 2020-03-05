@@ -46,19 +46,27 @@
                                 <i class="material-icons icon-for-text">date_range</i>
                                 <p class="medium-text ellipses-no-wrap">{{ card.date }}</p>
                             </div>
-                            {% for user in card.pendingUsers.all %}
-                                <li>{{ user }}</li>
-                            {% endfor %}
                         </div>
-                        <form action="" method="POST"> {% csrf_token %} 
+                        <form action="" method="POST" class="right-align-margin"> {% csrf_token %} 
                             <input type='hidden' value='{{card.id}}' name='card_id'>
-                            <button 
-                                class="btn secondary-background white right-align-margin signup-button"
-                                value="{{card.id}}"
-                                type="submit"
+                            {% if current_user in card.pendingUsers.all %}
+                                <button
+                                    class="btn secondary-background white signup-button disabled btn-success"
+                                    value="{{card.id}}"
+                                    type="submit"
+                                    disabled
                                 >
-                                Sign Up
-                            </button>
+                                    Pending <i class="fas fa-check"></i>
+                                </button>
+                            {% else %} 
+                                <button
+                                    class="btn secondary-background white signup-button"
+                                    value="{{card.id}}"
+                                    type="submit"
+                                >
+                                    Sign Up
+                                </button>
+                            {% endif %} 
                         </form>
                     </div>
                 </div>
