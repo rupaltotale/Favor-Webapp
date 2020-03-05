@@ -58,7 +58,6 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-erase',
     '--cover-package=favorApp',
-    '--verbosity=2',
     '--exe'
 ]
 
