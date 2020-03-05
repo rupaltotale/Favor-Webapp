@@ -31,9 +31,12 @@ def show_services(request):
         cards = Favor.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
+    # for card in cards:
+    #     if current_user in card.pendingUsers
     return render(request, 'home.html', {
         "cards": cards,
-        "search_term": query if query else ""
+        "search_term": query if query else "",
+        "current_user": current_user
     })
 
 def signup(request):
