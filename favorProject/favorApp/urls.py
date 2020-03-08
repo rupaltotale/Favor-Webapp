@@ -1,4 +1,4 @@
-"""favorProject URL Configuration
+"""favorApp URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -13,19 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from . import views
 from django.contrib import admin
 from django.urls import path
-from favorApp import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import include
-from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("signup/", views.signup, name="signup"),
-    path("", include("django.contrib.auth.urls")),
-    path("", include("favorApp.urls")),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', views.show_services),
+    # path('add-pending-user/', views.add_pending_user),
+    path('landing/', views.landing, name="landing"),
+    path('add-favor/', views.add_favor, name='add-favor'),
+    path('user/', views.show_profile_page, name="show_profile_page"),
+    path('edit/<int:pk>', views.edit_favor, name='edit_favor'),
+    path('delete/<int:pk>', views.delete_favor, name='delete_favor'),
 ]
-
-urlpatterns += staticfiles_urlpatterns()

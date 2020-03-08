@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% load static %} {% block pageHeader %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view_favor.css' %}" />
+{% endblock pageHeader%}
+{% block pageContent %}
+    <div>
+        <h3 class="display-4 text-center">{{ favor.title }}</h3>
+        <div>
+            {{ favor.owner }} is requesting {{ favor.number_of_favors }} favor for the service.
+        </div>
+        <div>
+            Details: {{ favor.description }}
+        </div>
+        <div>
+            At: {{ favor.location }}
+        </div>
+    </div>
+{% endblock pageContent %}
