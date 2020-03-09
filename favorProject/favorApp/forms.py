@@ -13,7 +13,7 @@ from bootstrap_datepicker_plus import DateTimePickerInput
 class AddFavorForm(ModelForm):
     class Meta:
         model = Favor
-        exclude = []
+        exclude = ["pendingUsers", "owner"]
         # fields = ["date"]
         help_texts = {
             'date': _('Enter a date between now and 4 weeks.'),
@@ -34,6 +34,7 @@ class AddFavorForm(ModelForm):
                 _('Invalid date - start date more than 4 weeks ahead'))
 
         # Remember to always return the cleaned data.
+        print("Printing data:", self.cleaned_data)
         return data
 
 
