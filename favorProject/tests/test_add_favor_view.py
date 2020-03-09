@@ -68,10 +68,7 @@ class AddFavorViewTests(TestCase):
             "title" : temp_favor.title,
             "date" : temp_favor.date,
             "location" : temp_favor.location,
-            "number_of_favors" : temp_favor.number_of_favors,
-            "volunteer_event" : False,
-            "requester_signed" : False,
-            "giver_signed" : False
+            "number_of_favors" : temp_favor.number_of_favors
          }
       )
 

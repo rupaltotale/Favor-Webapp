@@ -35,6 +35,3 @@ class FavorFactory(factory.Factory):
     number_of_favors = 3
     date = timezone.now() + timezone.timedelta(weeks=2)
     location = 'location'
-    volunteer_event = False
-    requester_signed = False
-    giver_signed = False
