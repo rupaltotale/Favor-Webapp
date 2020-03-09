@@ -23,9 +23,11 @@ class ShowServicesUITests(LiveServerTestCase):
 
         user = UserFactory()
         user.save()
-        favor1 = FavorFactory(owner=user)
+        tempUser = UserFactory()
+        tempUser.save()
+        favor1 = FavorFactory(owner=tempUser)
         favor1.save()
-        favor2 = FavorFactory(title="DIFFERENT", owner=user)
+        favor2 = FavorFactory(title="DIFFERENT", owner=tempUser)
         favor2.save()
         self.user = user
         SeleniumLoginHelper.do_login(self.browser, self.live_server_url, user)

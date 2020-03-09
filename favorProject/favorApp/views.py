@@ -31,10 +31,8 @@ def show_services(request):
         cards = Favor.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-    # for card in cards:
-    #     if current_user in card.pendingUsers
     return render(request, 'home.html', {
-        "cards": cards,
+        "cards": [card for card in cards if current_user != card.owner],
         "search_term": query if query else "",
         "current_user": current_user
     })
@@ -81,6 +79,8 @@ def add_favor(request):
 def show_profile_page(request):
     current_user = request.user
     favors = Favor.objects.all().filter(owner=request.user).order_by("-date")
+    for f in favors:
+        print(type(f.pendingUsers.all()), "HERE")
     context = {
         'user' : current_user,
         'favors': favors,

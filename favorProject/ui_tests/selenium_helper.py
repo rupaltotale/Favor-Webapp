@@ -33,21 +33,20 @@ class SeleniumFavorHelper:
 
     def __init__(self, card=None):
         self.card = card
-        self.id = self.get_id_from_favor_card(card) if card != None else None
-        self.title = self.get_favor_card_title(card) if card != None else None
-        self.description = self.get_favor_card_description(card) if card != None else None
-        self.number_of_favors = self.get_favor_card_favors(card) if card != None else None
-        inner_card_items = self.__parse_inner_card() if card != None else [None, None, None]
-        self.owner = User.objects.get(username=inner_card_items[0]) if inner_card_items[0] != None else None
-        self.username = self.owner.username if self.owner != None else None
+        self.id = self.get_id_from_favor_card(card) if card is not None else None
+        self.title = self.get_favor_card_title(card) if card is not None else None
+        self.description = self.get_favor_card_description(card) if card is not None else None
+        self.number_of_favors = self.get_favor_card_favors(card) if card is not None else None
+        inner_card_items = self.__parse_inner_card() if card is not None else [None, None, None]
+        self.owner = User.objects.get(username=inner_card_items[0]) if inner_card_items[0] is not None else None
+        self.username = self.owner.username if self.owner is not None else None
         self.location = inner_card_items[1]
         self.date = parse(inner_card_items[2])
     
     def get_id_from_favor_card(self, card):
-        a_element = card.find_element_by_partial_link_text("Sign")
-        href = a_element.get_attribute("href")
-        equal_index = href.find("=")
-        return int(href[equal_index + 1:])
+        a_element = card.find_element_by_tag_name("button")
+        value = a_element.get_attribute("value")
+        return int(value)
 
     def get_favor_card_title(self, card):
         if card is not None:
