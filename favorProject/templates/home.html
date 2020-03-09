@@ -51,7 +51,7 @@
                             <input type='hidden' value='{{card.id}}' name='card_id'>
                             {% if current_user in card.pendingUsers.all %}
                                 <button
-                                    class="btn secondary-background white signup-button disabled btn-warning"
+                                    class="btn secondary-background signup-button disabled btn-warning"
                                     value="{{card.id}}"
                                     type="submit"
                                     disabled
@@ -60,7 +60,7 @@
                                 </button>
                             {% elif current_user in card.pendingUsers.all %}
                                 <button
-                                    class="btn secondary-background white signup-button disabled btn-success"
+                                    class="btn secondary-background signup-button disabled btn-success"
                                     value="{{card.id}}"
                                     type="submit"
                                     disabled
@@ -110,8 +110,9 @@
     $('.signup-button').on('click',function() {
         var $formId = $(this).parents('form');
         $(this).prop("disabled",true);
-        this.innerHTML = `Pending <i class="fas fa-check"></i>`;
-        $(this).addClass("disabled btn-success");
+        this.innerHTML = `Pending <i class="fas fa-spinner"></i>`;
+        $(this).addClass("disabled btn-warning");
+        $(this).removeClass("white")
         $formId.trigger('submit');
     });
 </script>
