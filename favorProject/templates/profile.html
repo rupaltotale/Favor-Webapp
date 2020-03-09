@@ -8,9 +8,8 @@
          <img src="{% static 'img/profile.png' %}" height="200px">
          <h4>{{ user.username }}</h4>
       </div>
-      <div class="col-md-9">
          <h2 class="display-5 text-center">Favors I'm Offering</h2>
-         <table class="table table-striped table-bordered table-hover" style="width:60vw">
+         <table class="table table-striped table-bordered table-hover">
             <thead class="custom">
                 <tr>
                     <th scope="col">Name</th>  
@@ -50,6 +49,5 @@
          <div class="button-holder custom-margins">
             <a href="/add-favor/"><button class="btn btn-primary">Add New Favor</button></a>
           </div>
-      </div>
     </div>
 {% endblock pageContent %}
