@@ -9,8 +9,8 @@ class UserFactory(factory.Factory):
 
     first_name = 'John'
     last_name = 'Doe'
-    email = 'johndoe@johndoe.com'
-    username = "johndoe"
+    email = factory.Sequence(lambda n: 'johndoe{0}@johndoe.com'.format(n))
+    username = factory.Sequence(lambda n: 'johndoe{0}@johndoe.com'.format(n))
     password = factory.PostGenerationMethodCall('set_password', 'password')
 
 

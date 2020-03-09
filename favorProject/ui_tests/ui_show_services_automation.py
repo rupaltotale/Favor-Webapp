@@ -23,9 +23,11 @@ class ShowServicesUITests(LiveServerTestCase):
 
         user = UserFactory()
         user.save()
-        favor1 = FavorFactory(owner=user)
+        tempUser = UserFactory()
+        tempUser.save()
+        favor1 = FavorFactory(owner=tempUser)
         favor1.save()
-        favor2 = FavorFactory(title="DIFFERENT", owner=user)
+        favor2 = FavorFactory(title="DIFFERENT", owner=tempUser)
         favor2.save()
         self.user = user
         SeleniumLoginHelper.do_login(self.browser, self.live_server_url, user)
@@ -40,6 +42,8 @@ class ShowServicesUITests(LiveServerTestCase):
         expected_num_favors = len(Favor.objects.all())
         assert(expected_num_favors > 0)
         self.browser.get(self.live_server_url + "/")
+
+        time.sleep(2)
         
         cards = self.browser.find_elements_by_class_name("my-card")
 
