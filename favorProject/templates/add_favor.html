@@ -8,5 +8,6 @@
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary">Add Favor</button>
+    <button type="cancel" class="btn btn-dark float-right" onClick="javascript:history.go(-1);">Cancel</button>
   </form>
 {% endblock %}
