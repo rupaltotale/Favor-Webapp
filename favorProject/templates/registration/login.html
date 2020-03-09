@@ -1,22 +1,32 @@
 {% load static %}
+{% load crispy_forms_tags %}
 {% block pageHeader %} 
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-{% endblock pageHeader%}
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"
+    />
+        {% endblock pageHeader%}
 
 {% block pageContent %}
-<div class="center-page center-text">
-   <img  src="{% static 'images/logo.png' %}"height="120px">
-    <h2 class="main-text custom-margins">Sign In</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="button-holder custom-margins">
-            <button class="btn btn-primary px-2 m-3" id="login-but" type="submit">Log In</button>
-            <a class="btn btn-primary px-2 m-3" href="/signup/" >Sign Up</a>
+    <div class="center-page">
+        <div class="text-center">
+            <a href="/landing"><img  src="{% static 'images/logo.png' %}"height="120px"></a>
         </div>
-    </form>
-</div> 
+        <h2 class="display-4 text-center">Sign In</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="custom-margins">
+                <button class="btn btn-primary btn-lg" id="login-but" type="submit">Log In</button>
+            </div>
+            <p>
+                Don't have an account?<a class="px-1 m-1" href="/signup/" >Sign Up</a>
+            </p>
+        </form>
+    </div> 
 
 {% endblock %}

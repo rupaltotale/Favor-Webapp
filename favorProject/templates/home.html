@@ -51,12 +51,21 @@
                             <input type='hidden' value='{{card.id}}' name='card_id'>
                             {% if current_user in card.pendingUsers.all %}
                                 <button
+                                    class="btn secondary-background white signup-button disabled btn-warning"
+                                    value="{{card.id}}"
+                                    type="submit"
+                                    disabled
+                                >
+                                    Pending <i class="fas fa-user-clock"></i>
+                                </button>
+                            {% elif current_user in card.pendingUsers.all %}
+                                <button
                                     class="btn secondary-background white signup-button disabled btn-success"
                                     value="{{card.id}}"
                                     type="submit"
                                     disabled
                                 >
-                                    Pending <i class="fas fa-check"></i>
+                                    Confirmed <i class="fas fa-check"></i>
                                 </button>
                             {% else %} 
                                 <button
