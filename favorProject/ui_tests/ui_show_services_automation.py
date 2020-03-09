@@ -42,8 +42,6 @@ class ShowServicesUITests(LiveServerTestCase):
         expected_num_favors = len(Favor.objects.all())
         assert(expected_num_favors > 0)
         self.browser.get(self.live_server_url + "/")
-
-        time.sleep(2)
         
         cards = self.browser.find_elements_by_class_name("my-card")
 
