@@ -17,8 +17,8 @@
                     <th scope="col">Description</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Pending Users</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,21 +29,26 @@
                     <td>{{ f.number_of_favors }} favors</td>
                     <td>{{ f.location }}</td>
                     <td>
-                        <a href="/edit/{{ f.id }}">
-                            <button class="btn btn-info">Edit Favor</button>
+                        <a class="btn btn-success" href="/edit/{{ f.id }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger" href="/delete/{{ f.id }}">
+                            <i class="fas fa-trash"></i>
                         </a>
                     </td>
                     <td>
-                        <a href="/delete/{{ f.id }}">
-                            <button class="btn btn-danger">Delete Favor</button>
-                        </a>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-info align-middle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
          </table>
          <div class="button-holder custom-margins">
-            <a href="/add-favor/"><button class="btn wide-btn-2 btn-primary">Add New Favor</button></a>
+            <a href="/add-favor/"><button class="btn btn-primary">Add New Favor</button></a>
           </div>
       </div>
     </div>

@@ -77,11 +77,11 @@
    text-align: center;
 }
 
-.btn-primary {
+/* .btn-primary {
     font-family: 'proxima-nova', sans-serif;
     font-weight: 300;
     background-color: #644460 !important;
-}
+} */
 
 .big-btn {
     font-family: 'proxima-nova', sans-serif;
@@ -91,10 +91,6 @@
     height: 50px;
     width: 200px;
     margin: 20px;
-}
-
-.btn:hover {
-    background-color: #41293f !important;
 }
 
 .wide-btn {

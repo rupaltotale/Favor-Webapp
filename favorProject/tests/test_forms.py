@@ -10,8 +10,6 @@ class AddFavorFormTest(TestCase):
         self.assertTrue(form.fields['title'].label == 'Title')
         self.assertTrue(
             form.fields['number_of_favors'].label == 'Number of favors')
-        self.assertTrue(
-            form.fields['volunteer_event'].label == 'Volunteer event')
 
     def test_field_help_text(self):
         form = AddFavorForm()
