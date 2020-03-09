@@ -64,7 +64,9 @@ def add_favor(request):
         form = AddFavorForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
-            form.save()
+            doc = form.save(commit=False)
+            doc.owner = request.user
+            doc.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/user')
     # If this is a GET (or any other method) create the default form.
