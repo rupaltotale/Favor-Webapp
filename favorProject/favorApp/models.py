@@ -13,6 +13,7 @@ class Favor(models.Model):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     pendingUsers = models.ManyToManyField(User, related_name='pending_users')
+    confirmedUsers = models.ManyToManyField(User, related_name='confirmed_users')
 
     def __str__(self):
         return "Title: {}, Description: {}, Owner: {}".format(self.title, self.description, self.owner)

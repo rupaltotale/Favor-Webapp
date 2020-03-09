@@ -10,8 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q # new
 from django.http import JsonResponse
-
-
+from django.core.mail import EmailMessage
 
 def landing(request):
     return render(request, 'landing.html')
@@ -23,10 +22,19 @@ def show_services(request):
     cards = Favor.objects.all();
     current_user = request.user
     if request.method == "POST":
-        # print("Updating object: ", request.id)
         card_id = request.POST.get('card_id')
         favor = Favor.objects.get(id=card_id)
         favor.pendingUsers.add(current_user) 
+        owner_email = favor.owner.email
+        title = "You have a new request - Favor"
+        body = "Hooray! Someone has requested your service: {}. \nReach out to {} at {}. \
+            \nYou can also confirm or deny their on your profile page.".format(
+            favor.title,
+            current_user.first_name + " " + current_user.last_name,
+            current_user.email
+        )
+        email = EmailMessage(title, body, to=[owner_email])
+        email.send()
     if query:
         cards = Favor.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
