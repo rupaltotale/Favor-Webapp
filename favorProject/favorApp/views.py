@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
-from .models import Favor
+from .models import Favor, User
 
 # Signup/Login stuff
 from django.contrib.auth import login, authenticate
@@ -78,16 +78,41 @@ def add_favor(request):
     return render(request, 'add_favor.html', context)
 
 @login_required
-def show_profile_page(request):
+def show_profile_page(request, show_modal="no", favor_id=-1):
     current_user = request.user
-    favors = Favor.objects.all().filter(owner=request.user).order_by("-date")
-    for f in favors:
-        print(type(f.pendingUsers.all()), "HERE")
+    favorsOwned = Favor.objects.all().filter(owner=request.user).order_by("-date")
+    otherFavors = Favor.objects.all().filter(pendingUsers=request.user).order_by("-date")
+
     context = {
         'user' : current_user,
-        'favors': favors,
+        'ownedFavors': favorsOwned,
+        'otherFavors' : otherFavors,
+        'show_modal' : show_modal,
+        'favor_id' : favor_id
     }
+
     return render(request, 'profile.html', context)
+
+@login_required
+def process_profile_page_req(request):
+    if request.method == "POST":
+        user_id = request.POST["user_id"]
+        favor_id = request.POST["favor_id"]
+        action = request.POST["action"]
+        user = get_object_or_404(User, pk=user_id)
+        favor = get_object_or_404(Favor, pk=favor_id)
+        if request.user != favor.owner:
+            return HttpResponseNotAllowed()
+
+        if action == "ACCEPT":
+            print("ACCEPTED for favor", favor.title)
+        elif action == "DENY":
+            favor.pendingUsers.remove(user)
+        else:
+            return HttpResponseNotAllowed('<h1>Unacceptable ACTION received</h1>')
+        return HttpResponseRedirect("/user/")
+    else:
+        return HttpResponseNotAllowed()
 
 @login_required
 def edit_favor(request, pk):
