@@ -81,12 +81,14 @@ def add_favor(request):
 def show_profile_page(request, show_modal="no", favor_id=-1):
     current_user = request.user
     favorsOwned = Favor.objects.all().filter(owner=request.user).order_by("-date")
-    otherFavors = Favor.objects.all().filter(pendingUsers=request.user).order_by("-date")
+    pendingFavors = Favor.objects.all().filter(pendingUsers=request.user).order_by("-date")
+    confirmedFavors = Favor.objects.all().filter(confirmedUsers=request.user).order_by("-date")
 
     context = {
         'user' : current_user,
         'ownedFavors': favorsOwned,
-        'otherFavors' : otherFavors,
+        'pendingFavors' : pendingFavors,
+        'confirmedFavors' : confirmedFavors,
         'show_modal' : show_modal,
         'favor_id' : favor_id
     }
@@ -105,7 +107,8 @@ def process_profile_page_req(request):
             return HttpResponseNotAllowed()
 
         if action == "ACCEPT":
-            print("ACCEPTED for favor", favor.title)
+            favor.pendingUsers.remove(user)
+            favor.confirmedUsers.add(user)
         elif action == "DENY":
             favor.pendingUsers.remove(user)
         else:
