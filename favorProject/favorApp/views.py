@@ -19,6 +19,7 @@ def check_and_make_new_profile(user):
     else:
         profile = profile.first()
     return profile
+    
 
 def landing(request):
     return render(request, 'landing.html')
@@ -50,6 +51,7 @@ def show_services(request):
         )
     return render(request, 'home.html', {
         "cards": [card for card in cards if current_user != card.owner],
+        "user_favors" : UserProfile.objects.get(user=current_user).number_of_favors,
         "search_term": query if query else "",
         "current_user": current_user
     })
@@ -119,17 +121,20 @@ def show_profile_page(request, show_modal="no", favor_id=-1):
 @login_required
 def process_profile_page_req(request):
     if request.method == "POST":
+        current_user = request.user
         user_id = request.POST.get("user_id")
         favor_id = request.POST.get("favor_id")
         action = request.POST.get("action")
         user = get_object_or_404(User, pk=user_id)
         favor = get_object_or_404(Favor, pk=favor_id)
-        if request.user != favor.owner:
+        if current_user != favor.owner:
             return HttpResponseForbidden('<h1>Forbidden: requesting user not favor owner</h1>')
 
         if action == "ACCEPT":
             favor.pendingUsers.remove(user)
             favor.confirmedUsers.add(user)
+            UserProfile.objects.get(user=current_user).number_of_favors += favor.number_of_favors
+            UserProfile.objects.get(user=user).number_of_favors -= favor.number_of_favors
         elif action == "DENY":
             favor.pendingUsers.remove(user)
         else:

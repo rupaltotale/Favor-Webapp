@@ -57,5 +57,3 @@ class ShowServicesUITests(LiveServerTestCase):
             self.assertEqual(favor_obj_date, helper_card.date)
 
         self.assertEqual(expected_num_favors, len(cards))
-
-

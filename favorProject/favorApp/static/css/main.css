@@ -131,6 +131,13 @@ p {
 
 .white:hover {
     color: white;
+}
+
+.white:disabled {
+    opacity: 0.4;
+}
+
+.white:hover:enabled {
     transform: scale(1.02);
 }
 

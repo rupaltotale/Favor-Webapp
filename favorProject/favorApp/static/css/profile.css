@@ -17,9 +17,31 @@ table {
     width: var(--table-size);
 }
 
+td.title {
+    width: 15vw;
+}
+
+td.number-of-favors {
+    width: 7vw;
+}
+
+td.location {
+    width: 15vw;
+}
+
+td.status {
+    text-align: center;
+}
+
+td.desc {
+    max-width: 20vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .empty-message {
     width: var(--table-size);
-    background-color: white;
     border: 0;
     text-align: left;
 }
