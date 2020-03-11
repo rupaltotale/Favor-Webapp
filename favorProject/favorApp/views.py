@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
-from django.http import HttpResponseRedirect, HttpResponseNotAllowed
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden
 from .models import Favor, User
 
 # Signup/Login stuff
@@ -23,7 +23,6 @@ def show_services(request):
     cards = Favor.objects.all();
     current_user = request.user
     if request.method == "POST":
-        # print("Updating object: ", request.id)
         card_id = request.POST.get('card_id')
         favor = Favor.objects.get(id=card_id)
         favor.pendingUsers.add(current_user) 
@@ -98,13 +97,13 @@ def show_profile_page(request, show_modal="no", favor_id=-1):
 @login_required
 def process_profile_page_req(request):
     if request.method == "POST":
-        user_id = request.POST["user_id"]
-        favor_id = request.POST["favor_id"]
-        action = request.POST["action"]
+        user_id = request.POST.get("user_id")
+        favor_id = request.POST.get("favor_id")
+        action = request.POST.get("action")
         user = get_object_or_404(User, pk=user_id)
         favor = get_object_or_404(Favor, pk=favor_id)
         if request.user != favor.owner:
-            return HttpResponseNotAllowed()
+            return HttpResponseForbidden('<h1>Forbidden: requesting user not favor owner</h1>')
 
         if action == "ACCEPT":
             favor.pendingUsers.remove(user)
@@ -115,7 +114,7 @@ def process_profile_page_req(request):
             return HttpResponseNotAllowed('<h1>Unacceptable ACTION received</h1>')
         return HttpResponseRedirect("/user/")
     else:
-        return HttpResponseNotAllowed()
+        return HttpResponseNotAllowed('<h1>GET service unavailable</h1>')
 
 @login_required
 def edit_favor(request, pk):

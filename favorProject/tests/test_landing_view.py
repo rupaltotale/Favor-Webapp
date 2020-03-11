@@ -1,24 +1,13 @@
 from django.test import TestCase
-from tests.factories import *
 from django.urls import reverse
-from favorApp.models import Favor
+from django.contrib.auth.models import User
 
-class ShowProfileViewTests(TestCase):
+class LandingViewTest(TestCase):
    @classmethod
    def setUpTestData(cls):
-      print("Running ShowProfileViewTest...")
-      user = UserFactory()
-      user.save()
-      cls.user = user
-      cls.url = "/user/"
+      print("Running LandingViewTest...")
+      cls.url = reverse('landing')
 
-
-   def setUp(self):
-      self.client.login(
-         username=self.user.username, password='password'
-      )
-      
-   
    def test_view_url_exists(self):
       expected_status_code = 200
 
@@ -27,19 +16,19 @@ class ShowProfileViewTests(TestCase):
       self.assertEqual(expected_status_code, response.status_code)
 
 
-   def test_view_uses_base_template(self):
+   def test_view_ignores_base_template(self):
       expected_status_code = 200
-      expected_template = "base.html"
+      expected_template_to_ignore = "base.html"
 
       response = self.client.get(self.url)
 
       self.assertEqual(expected_status_code, response.status_code)
-      self.assertTemplateUsed(response, expected_template)
+      self.assertTemplateNotUsed(response, expected_template_to_ignore)
 
 
-   def test_view_uses_own_template(self):
+   def test_view_uses_landing_template(self):
       expected_status_code = 200
-      expected_template = "profile.html"
+      expected_template = "landing.html"
 
       response = self.client.get(self.url)
 
