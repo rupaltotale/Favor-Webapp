@@ -17,3 +17,11 @@ class Favor(models.Model):
 
     def __str__(self):
         return "Title: {}, Description: {}, Owner: {}".format(self.title, self.description, self.owner)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    number_of_favors = models.IntegerField(blank=False, default=5)
+
+    def __str__(self):
+        return "User: {}, favors: {}".format(self.user, self.number_of_favors)

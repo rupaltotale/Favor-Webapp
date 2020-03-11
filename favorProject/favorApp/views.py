@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden
-from .models import Favor, User
+from .models import Favor, User, UserProfile
 
 # Signup/Login stuff
 from django.contrib.auth import login, authenticate
@@ -10,8 +10,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q # new
 from django.http import JsonResponse
+from django.core.mail import EmailMessage
 
-
+def check_and_make_new_profile(user):
+    profile = UserProfile.objects.filter(user=user)
+    if not profile.exists():
+        profile = UserProfile.objects.create(user=user).save()
+    else:
+        profile = profile.first()
+    return profile
 
 def landing(request):
     return render(request, 'landing.html')
@@ -20,12 +27,23 @@ def landing(request):
 @login_required
 def show_services(request):
     query = request.GET.get('q')
-    cards = Favor.objects.all();
+    cards = Favor.objects.all()
     current_user = request.user
+    check_and_make_new_profile(current_user)
     if request.method == "POST":
         card_id = request.POST.get('card_id')
         favor = Favor.objects.get(id=card_id)
         favor.pendingUsers.add(current_user) 
+        owner_email = favor.owner.email
+        title = "You have a new request - Favor"
+        body = "Hooray! Someone has requested your service: {}. \nReach out to {} at {}. \
+            \nYou can also confirm or deny their on your profile page.".format(
+            favor.title,
+            current_user.first_name + " " + current_user.last_name,
+            current_user.email
+        )
+        email = EmailMessage(title, body, to=[owner_email])
+        email.send()
     if query:
         cards = Favor.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
@@ -44,6 +62,8 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            new_profile = UserProfile.objects.create(user=user)
+            new_profile.save()
             login(request, user)
             return redirect('/')
         else:
@@ -79,12 +99,14 @@ def add_favor(request):
 @login_required
 def show_profile_page(request, show_modal="no", favor_id=-1):
     current_user = request.user
+    profile = check_and_make_new_profile(current_user)
     favorsOwned = Favor.objects.all().filter(owner=request.user).order_by("-date")
     pendingFavors = Favor.objects.all().filter(pendingUsers=request.user).order_by("-date")
     confirmedFavors = Favor.objects.all().filter(confirmedUsers=request.user).order_by("-date")
 
     context = {
         'user' : current_user,
+        'profile' : profile,
         'ownedFavors': favorsOwned,
         'pendingFavors' : pendingFavors,
         'confirmedFavors' : confirmedFavors,
