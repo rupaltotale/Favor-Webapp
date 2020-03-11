@@ -20,6 +20,7 @@ def check_and_make_new_profile(user):
         profile = profile.first()
     return profile
 
+
 def landing(request):
     return render(request, 'landing.html')
 
