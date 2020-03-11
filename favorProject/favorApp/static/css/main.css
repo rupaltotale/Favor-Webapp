@@ -150,6 +150,10 @@ p {
     width: 100%;
 }
 
+.no-wrap {
+    white-space: nowrap;
+}
+
 .ellipses-no-wrap {
     white-space: nowrap;
     text-overflow: ellipsis;
