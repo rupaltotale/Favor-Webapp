@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm, AddFavorForm
-from django.http import HttpResponseRedirect, HttpResponseNotAllowed
-from .models import Favor
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden
+from .models import Favor, User, UserProfile
 
 # Signup/Login stuff
 from django.contrib.auth import login, authenticate
@@ -12,6 +12,15 @@ from django.db.models import Q # new
 from django.http import JsonResponse
 from django.core.mail import EmailMessage
 
+def check_and_make_new_profile(user):
+    profile = UserProfile.objects.filter(user=user)
+    if not profile.exists():
+        profile = UserProfile.objects.create(user=user).save()
+    else:
+        profile = profile.first()
+    return profile
+
+
 def landing(request):
     return render(request, 'landing.html')
 
@@ -19,8 +28,9 @@ def landing(request):
 @login_required
 def show_services(request):
     query = request.GET.get('q')
-    cards = Favor.objects.all();
+    cards = Favor.objects.all()
     current_user = request.user
+    check_and_make_new_profile(current_user)
     if request.method == "POST":
         card_id = request.POST.get('card_id')
         favor = Favor.objects.get(id=card_id)
@@ -53,6 +63,8 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            new_profile = UserProfile.objects.create(user=user)
+            new_profile.save()
             login(request, user)
             return redirect('/')
         else:
@@ -86,16 +98,46 @@ def add_favor(request):
     return render(request, 'add_favor.html', context)
 
 @login_required
-def show_profile_page(request):
+def show_profile_page(request, show_modal="no", favor_id=-1):
     current_user = request.user
-    favors = Favor.objects.all().filter(owner=request.user).order_by("-date")
-    for f in favors:
-        print(type(f.pendingUsers.all()), "HERE")
+    profile = check_and_make_new_profile(current_user)
+    favorsOwned = Favor.objects.all().filter(owner=request.user).order_by("-date")
+    pendingFavors = Favor.objects.all().filter(pendingUsers=request.user).order_by("-date")
+    confirmedFavors = Favor.objects.all().filter(confirmedUsers=request.user).order_by("-date")
+
     context = {
         'user' : current_user,
-        'favors': favors,
+        'profile' : profile,
+        'ownedFavors': favorsOwned,
+        'pendingFavors' : pendingFavors,
+        'confirmedFavors' : confirmedFavors,
+        'show_modal' : show_modal,
+        'favor_id' : favor_id
     }
+
     return render(request, 'profile.html', context)
+
+@login_required
+def process_profile_page_req(request):
+    if request.method == "POST":
+        user_id = request.POST.get("user_id")
+        favor_id = request.POST.get("favor_id")
+        action = request.POST.get("action")
+        user = get_object_or_404(User, pk=user_id)
+        favor = get_object_or_404(Favor, pk=favor_id)
+        if request.user != favor.owner:
+            return HttpResponseForbidden('<h1>Forbidden: requesting user not favor owner</h1>')
+
+        if action == "ACCEPT":
+            favor.pendingUsers.remove(user)
+            favor.confirmedUsers.add(user)
+        elif action == "DENY":
+            favor.pendingUsers.remove(user)
+        else:
+            return HttpResponseNotAllowed('<h1>Unacceptable ACTION received</h1>')
+        return HttpResponseRedirect("/user/")
+    else:
+        return HttpResponseNotAllowed('<h1>GET service unavailable</h1>')
 
 @login_required
 def edit_favor(request, pk):

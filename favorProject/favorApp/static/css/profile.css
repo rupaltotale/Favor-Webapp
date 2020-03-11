@@ -1,0 +1,25 @@
+:root {
+    --table-size: 60vw;
+}
+
+.pending-user-modal-icons {
+    margin-right: 25px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.pending-user-modal-icons:hover {
+    transform: scale(1.3);
+    opacity: 0.8;
+}
+
+table {
+    width: var(--table-size);
+}
+
+.empty-message {
+    width: var(--table-size);
+    background-color: white;
+    border: 0;
+    text-align: left;
+}
