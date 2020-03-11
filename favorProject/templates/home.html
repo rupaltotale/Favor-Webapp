@@ -58,7 +58,7 @@
                                 >
                                     Pending <i class="fas fa-user-clock"></i>
                                 </button>
-                            {% elif current_user in card.pendingUsers.all %}
+                            {% elif current_user in card.confirmedUsers.all %}
                                 <button
                                     class="btn secondary-background signup-button disabled btn-success"
                                     value="{{card.id}}"
