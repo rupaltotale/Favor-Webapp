@@ -20,11 +20,10 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.show_services),
-    # path('add-pending-user/', views.add_pending_user),
     path('landing/', views.landing, name="landing"),
     path('add-favor/', views.add_favor, name='add-favor'),
     path('user/', views.show_profile_page, name="show_profile_page"),
     path('edit/<int:pk>', views.edit_favor, name='edit_favor'),
-    path('delete/<int:pk>', views.delete_favor, name='delete_favor'),
+    path('delete-favor-object/', views.delete_favor_object, name="delete-favor"),
     path('process-pending-user-change/', views.process_profile_page_req, name="process-pending")
 ]

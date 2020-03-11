@@ -28,9 +28,14 @@
                         <a class="btn btn-success" href="/edit/{{ f.id }}">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="btn btn-danger" href="/delete/{{ f.id }}">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        <form 
+                            action="/delete-favor-object/"
+                            method="POST"> {% csrf_token %}
+                            <input type='hidden' value='{{f.id}}' name='favor_id'>
+                            <button class="btn btn-danger" type="submit">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                     <td>
                         <div class="d-flex justify-content-center">
