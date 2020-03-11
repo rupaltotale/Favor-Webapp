@@ -25,13 +25,13 @@
                     <td style="width: 7vw">{{ f.number_of_favors }} favors</td>
                     <td style="width: 10vw;">{{ f.location }}</td>
                     <td>
-                        <a class="btn btn-success" href="/edit/{{ f.id }}">
-                            <i class="fas fa-edit"></i>
-                        </a>
                         <form 
                             action="/delete-favor-object/"
                             method="POST"> {% csrf_token %}
                             <input type='hidden' value='{{f.id}}' name='favor_id'>
+                            <a class="btn btn-success" href="/edit/{{ f.id }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
                             <button class="btn btn-danger" type="submit">
                                 <i class="fas fa-trash"></i>
                             </button>

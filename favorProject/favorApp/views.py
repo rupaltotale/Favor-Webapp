@@ -131,6 +131,18 @@ def process_profile_page_req(request):
         if action == "ACCEPT":
             favor.pendingUsers.remove(user)
             favor.confirmedUsers.add(user)
+            user_email = user.email
+            title = "Your request for a favor has been confirmed - Favor!"
+            body = "Hooray! {} has accepted your request for the service: {} you requesed. \
+                \nReach out to {} at {} to coordinate the fullfillment of this service.".format(
+                favor.owner.username,
+                favor.title,
+                favor.owner.first_name + " " + favor.owner.last_name,
+                favor.owner.email
+            )
+            email = EmailMessage(title, body, to=[user_email])
+            print(title, body, user_email)
+            email.send()
         elif action == "DENY":
             favor.pendingUsers.remove(user)
         elif action == "DELETE":
