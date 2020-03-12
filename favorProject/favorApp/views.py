@@ -19,7 +19,6 @@ def check_and_make_new_profile(user):
     else:
         profile = profile.first()
     return profile
-    
 
 def landing(request):
     return render(request, 'landing.html')
@@ -137,10 +136,36 @@ def process_profile_page_req(request):
             c_user_profile.update(number_of_favors=c_user_profile.first().number_of_favors + favor.number_of_favors)
             req_user_profile = UserProfile.objects.filter(user=user)
             req_user_profile.update(number_of_favors=req_user_profile.first().number_of_favors - favor.number_of_favors)
+            user_email = user.email
+            title = "Your request for a favor has been confirmed - Favor!"
+            body = "Hooray! {} has accepted your request for the service: {} you requesed. \
+                \nReach out to {} at {} to coordinate the fullfillment of this service.".format(
+                favor.owner.username,
+                favor.title,
+                favor.owner.first_name + " " + favor.owner.last_name,
+                favor.owner.email
+            )
+            email = EmailMessage(title, body, to=[user_email])
+            print(title, body, user_email)
+            email.send()
         elif action == "DENY":
             favor.pendingUsers.remove(user)
+        elif action == "DELETE":
+            favor.delete()
         else:
             return HttpResponseNotAllowed('<h1>Unacceptable ACTION received</h1>')
+        return HttpResponseRedirect("/user/")
+    else:
+        return HttpResponseNotAllowed('<h1>GET service unavailable</h1>')
+
+@login_required
+def delete_favor_object(request):
+    if request.method == "POST":
+        favor_id = request.POST.get("favor_id")
+        favor = get_object_or_404(Favor, pk=favor_id)
+        if request.user != favor.owner:
+            return HttpResponseForbidden('<h1>Forbidden: requesting user not favor owner</h1>')
+        favor.delete()
         return HttpResponseRedirect("/user/")
     else:
         return HttpResponseNotAllowed('<h1>GET service unavailable</h1>')
@@ -153,12 +178,4 @@ def edit_favor(request, pk):
         form.save()
         return redirect('show_profile_page')
     return render(request, "edit_favor.html", {'form' : form})
-
-@login_required
-def delete_favor(request, pk):
-    current_favor = get_object_or_404(Favor, pk=pk)
-    if request.method == 'POST':
-        current_favor.delete()
-        return redirect('show_profile_page')
-    return render(request, "delete_favor.html", {'object' : current_favor})
 

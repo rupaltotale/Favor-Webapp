@@ -30,12 +30,17 @@
                         <td class="number-of-favors">{{ f.number_of_favors }} favors</td>
                         <td class="location">{{ f.location }}</td>
                         <td class="actions">
-                            <a class="btn btn-success" href="/edit/{{ f.id }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a class="btn btn-danger" href="/delete/{{ f.id }}">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form 
+                                action="/delete-favor-object/"
+                                method="POST"> {% csrf_token %}
+                                <input type='hidden' value='{{f.id}}' name='favor_id'>
+                                <a class="btn btn-success" href="/edit/{{ f.id }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                         <td class="requesters">
                             <div class="d-flex justify-content-center">
