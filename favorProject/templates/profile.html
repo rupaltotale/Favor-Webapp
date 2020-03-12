@@ -19,7 +19,7 @@
                     <th scope="col">Cost</th>
                     <th scope="col">Location</th>
                     <th scope="col">Actions</th>
-                    <th scope="col">Requesters</th>
+                    <th scope="col">Requesters<br><span style="font-size: 0.9em; font-weight: normal;">Pending (*)</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,11 +37,15 @@
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>
+                        <td class="requesters">
                             <div class="d-flex justify-content-center">
                                 {% if f.pendingUsers.all or f.confirmedUsers.all %}
                                     <button id="pending-user-{{ f.id }}" class="btn btn-info align-middle">
-                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye">
+                                            {% if f.pendingUsers.all %}
+                                                <span style="position: absolute; font-size: 1.3em; margin-left: 2px; width: 0px; height: 0px;"> *</span>
+                                            {% endif %}
+                                        </i>
                                     </button>
                                 {% else %}
                                     <i>N/A</i>
@@ -63,7 +67,7 @@
                                     {% if f.pendingUsers.all %}
                                         {% for u in f.pendingUsers.all %}
                                             <div class="flex">
-                                                <p>{{ user.username }}</p>
+                                                <p>{{ u.username }}</p>
                                                 <div class="flex right-align-margin">
                                                     <form 
                                                         action="/process-pending-user-change/"

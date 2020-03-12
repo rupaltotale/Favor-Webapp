@@ -44,6 +44,10 @@ td.desc {
     overflow: hidden;
 }
 
+td.requesters {
+    width: 8vw;
+}
+
 .empty-message {
     width: var(--table-size);
     border: 0;

@@ -68,8 +68,6 @@ def signup(request):
             new_profile.save()
             login(request, user)
             return redirect('/')
-        else:
-            print("form not valid")
     else:
         form = SignUpForm()
     return render(request, "signup.html", {"form": form})
