@@ -1,6 +1,7 @@
 from favorApp.models import User
 from dateutil.parser import parse
 from selenium.webdriver.common.keys import Keys
+from time import sleep
 
 class SeleniumHelperException(Exception):
     def __init__(self, error):
@@ -10,9 +11,12 @@ class SeleniumHelperException(Exception):
 class SeleniumLoginHelper:
 
     @staticmethod
-    def do_login(browser, base_url, user):
+    def do_login(browser, base_url, user, wait=0):
         expected_url = base_url + "/"
         browser.get(base_url + '/login')
+        
+        if wait > 0:
+            sleep(wait)
 
         username = browser.find_element_by_id('id_username')
         password = browser.find_element_by_id('id_password')
@@ -21,8 +25,15 @@ class SeleniumLoginHelper:
 
         #Fill the form with data
         username.send_keys(user.username)
+
+        if wait > 0:
+            sleep(wait)
+
         password.send_keys('password')
 
+        if wait > 0:
+            sleep(wait)
+            
         #submitting the form
         submit.send_keys(Keys.RETURN)
 

@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from tests.factories import *
 from selenium.webdriver.common.keys import Keys
@@ -6,7 +6,7 @@ from django.urls import reverse
 import os
 import time
 
-class SignUpUITests(LiveServerTestCase):
+class SignUpUITests(StaticLiveServerTestCase):
 
     def setUp(self):
         super(SignUpUITests, self).setUp()

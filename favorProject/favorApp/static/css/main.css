@@ -71,6 +71,7 @@ p {
 .popover-body {
     padding: 0 !important;
     padding-top: 5%;
+    text-align: center;
 }
 
 .popover-header {
@@ -84,7 +85,6 @@ p {
 
 .popover-body > a {
     display: block;
-    width: 7vw;
     padding: 4% 0;
     color: black;
     text-decoration: none;
@@ -131,6 +131,13 @@ p {
 
 .white:hover {
     color: white;
+}
+
+.white:disabled {
+    opacity: 0.4;
+}
+
+.white:hover:enabled {
     transform: scale(1.02);
 }
 

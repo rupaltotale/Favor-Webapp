@@ -5,7 +5,6 @@
 
 {% endblock pageHeader%}
 {% block pageContent %}
-    
     <div class="title-container">
         <h2 class="display-4 text-center">Available Favors</h2>
     </div>
@@ -20,12 +19,13 @@
                 value={{ search_term }}
                 >
             <small id="textHelpBlock" class="form-text text-muted text-center">
-                Filter listing of favors by name and descriprion. Listings are filtered as you type. 
+                Filter listing of favors by name and description. Listings are filtered as you type. 
             </small>
             {% comment %} <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> {% endcomment %}
         </form>
     </div>
     <div class="general-card-container">
+        <h3 class="full-width text-center">Your Favors: {{ user_favors }}</h3>
         <div class="my-card-list">
             {% for card in cards %}
                 <div class="my-card card-row-separator">
@@ -67,15 +67,27 @@
                                 >
                                     Confirmed <i class="fas fa-check"></i>
                                 </button>
-                            {% else %} 
-                                <button
-                                    class="btn secondary-background white signup-button"
-                                    value="{{card.id}}"
-                                    type="submit"
-                                >
-                                    Sign Up
-                                </button>
-                            {% endif %} 
+                            {% else %}
+                                {% if card.number_of_favors > user_favors %}
+                                    <button
+                                        class="btn bg-secondary white signup-button"
+                                        value="{{card.id}}"
+                                        type="submit"
+                                        title="You do not have enough favors"
+                                        disabled       
+                                    >
+                                        Sign Up
+                                    </button>
+                                {% else %}
+                                    <button
+                                        class="btn secondary-background white signup-button"
+                                        value="{{card.id}}"
+                                        type="submit"
+                                    >
+                                        Sign Up
+                                    </button>
+                                {% endif %} 
+                            {% endif %}
                         </form>
                     </div>
                 </div>

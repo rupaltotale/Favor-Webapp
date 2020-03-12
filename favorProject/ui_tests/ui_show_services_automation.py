@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from tests.factories import *
 from selenium.webdriver.common.keys import Keys
@@ -8,7 +8,7 @@ import os
 from favorApp.models import Favor
 import time
 
-class ShowServicesUITests(LiveServerTestCase):
+class ShowServicesUITests(StaticLiveServerTestCase):
 
     def setUp(self):
         super(ShowServicesUITests, self).setUp()
@@ -57,5 +57,3 @@ class ShowServicesUITests(LiveServerTestCase):
             self.assertEqual(favor_obj_date, helper_card.date)
 
         self.assertEqual(expected_num_favors, len(cards))
-
-

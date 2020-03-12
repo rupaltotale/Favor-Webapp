@@ -1,7 +1,7 @@
 from django.test import TestCase, RequestFactory
 from tests.factories import *
 from django.urls import reverse
-from favorApp.models import Favor
+from favorApp.models import Favor, UserProfile
 from favorApp.views import process_profile_page_req
 
 class ProcessPendingRequestChangeTests(TestCase):
@@ -53,6 +53,13 @@ class ProcessPendingRequestChangeTests(TestCase):
    def test_view_allows_confimation(self):
       expected_status_code = 302
       expected_redirect_url = '/user/'
+      new_profile = UserProfile.objects.create(user=self.user)
+      new_profile.save()
+      new_profile2 = UserProfile.objects.create(user=self.user2)
+      new_profile2.save()
+      expected_favors_for_user = new_profile.number_of_favors + self.favor.number_of_favors
+      expected_favors_for_user2 = new_profile2.number_of_favors - self.favor.number_of_favors
+
       request = self.request_factory.post(self.url, {
          "user_id" : self.user2.id,
          "favor_id" : self.favor.id,
@@ -66,6 +73,10 @@ class ProcessPendingRequestChangeTests(TestCase):
       self.assertEqual(expected_redirect_url, response.url)
       self.assertTrue(self.user2 in self.favor.confirmedUsers.all())
       self.assertTrue(self.user2 not in self.favor.pendingUsers.all())
+      new_profile = UserProfile.objects.get(user=self.user)
+      new_profile2 = UserProfile.objects.get(user=self.user2)
+      self.assertEqual(expected_favors_for_user, new_profile.number_of_favors)
+      self.assertEqual(expected_favors_for_user2, new_profile2.number_of_favors)
 
 
    def test_view_allows_deny(self):
