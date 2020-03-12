@@ -19,7 +19,7 @@
                     <th scope="col">Cost</th>
                     <th scope="col">Location</th>
                     <th scope="col">Actions</th>
-                    <th scope="col">Pending Users</th>
+                    <th scope="col">Requesters</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                         <td class="desc">{{ f.description }}</td>
                         <td class="number-of-favors">{{ f.number_of_favors }} favors</td>
                         <td class="location">{{ f.location }}</td>
-                        <td>
+                        <td class="actions">
                             <a class="btn btn-success" href="/edit/{{ f.id }}">
                                 <i class="fas fa-edit"></i>
                             </a>
@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                {% if f.pendingUsers.all %}
+                                {% if f.pendingUsers.all or f.confirmedUsers.all %}
                                     <button id="pending-user-{{ f.id }}" class="btn btn-info align-middle">
                                         <i class="fas fa-eye"></i>
                                     </button>
@@ -60,37 +60,55 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    {% for user in f.pendingUsers.all %}
-                                        <div class="flex">
-                                            <p>{{ user.username }}</p>
-                                            <div class="flex right-align-margin">
-                                                <form 
-                                                    action="/process-pending-user-change/"
-                                                    method="POST"
-                                                    class="right-align-margin"
-                                                > {% csrf_token %} 
-                                                    <input type='hidden' value='{{f.id}}' name='favor_id'>
-                                                    <input type='hidden' value='DENY' name='action' />
-                                                    <input type='hidden' value='{{user.id}}' name='user_id' />
-                                                    <button class="btn" type="submit">
-                                                        <i class='fas fa-times red pending-user-modal-icons'></i>
-                                                    </button>
-                                                </form>
-                                                <form 
-                                                    action="/process-pending-user-change/"
-                                                    method="POST"
-                                                    class="right-align-margin"
-                                                > {% csrf_token %} 
-                                                    <input type='hidden' value='{{f.id}}' name='favor_id'>
-                                                    <input type='hidden' value='ACCEPT' name='action' />
-                                                    <input type='hidden' value='{{user.id}}' name='user_id' />
-                                                    <button class="btn" type="submit">
-                                                        <i class='fas fa-check green pending-user-modal-icons'></i>
-                                                    </button>
-                                                </form>
+                                    {% if f.pendingUsers.all %}
+                                        {% for u in f.pendingUsers.all %}
+                                            <div class="flex">
+                                                <p>{{ user.username }}</p>
+                                                <div class="flex right-align-margin">
+                                                    <form 
+                                                        action="/process-pending-user-change/"
+                                                        method="POST"
+                                                        class="right-align-margin"
+                                                    > {% csrf_token %} 
+                                                        <input type='hidden' value='{{f.id}}' name='favor_id'>
+                                                        <input type='hidden' value='DENY' name='action' />
+                                                        <input type='hidden' value='{{u.id}}' name='user_id' />
+                                                        <button id="deny-{{u.id}}-{{f.id}}" class="btn" type="submit">
+                                                            <i class='fas fa-times red pending-user-modal-icons'></i>
+                                                        </button>
+                                                    </form>
+                                                    <form 
+                                                        action="/process-pending-user-change/"
+                                                        method="POST"
+                                                        class="right-align-margin"
+                                                    > {% csrf_token %} 
+                                                        <input type='hidden' value='{{f.id}}' name='favor_id'>
+                                                        <input type='hidden' value='ACCEPT' name='action' />
+                                                        <input type='hidden' value='{{u.id}}' name='user_id' />
+                                                        <button id="accept-{{u.id}}-{{f.id}}" class="btn" type="submit">
+                                                            <i class='fas fa-check green pending-user-modal-icons'></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        No pending users for this favor
+                                    {% endif %}
+                                </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmed Users</h5>
+                                </div>
+                                <div class="modal-body">
+                                {% if f.confirmedUsers.all %}
+                                    {% for u in f.confirmedUsers.all %}
+                                        <div class="flex">
+                                            <p>{{ u.username }}</p>
                                         </div>
                                     {% endfor %}
+                                {% else %}
+                                    No confirmed users for this favor
+                                {% endif %}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -5,7 +5,6 @@
 
 {% endblock pageHeader%}
 {% block pageContent %}
-    
     <div class="title-container">
         <h2 class="display-4 text-center">Available Favors</h2>
     </div>
@@ -26,6 +25,7 @@
         </form>
     </div>
     <div class="general-card-container">
+        <h3 class="full-width text-center">Your Favors: {{ user_favors }}</h3>
         <div class="my-card-list">
             {% for card in cards %}
                 <div class="my-card card-row-separator">

@@ -133,8 +133,12 @@ def process_profile_page_req(request):
         if action == "ACCEPT":
             favor.pendingUsers.remove(user)
             favor.confirmedUsers.add(user)
-            UserProfile.objects.get(user=current_user).number_of_favors += favor.number_of_favors
-            UserProfile.objects.get(user=user).number_of_favors -= favor.number_of_favors
+            check_and_make_new_profile(current_user)
+            check_and_make_new_profile(user)
+            c_user_profile = UserProfile.objects.filter(user=current_user)
+            c_user_profile.update(number_of_favors=c_user_profile.first().number_of_favors + favor.number_of_favors)
+            req_user_profile = UserProfile.objects.filter(user=user)
+            req_user_profile.update(number_of_favors=req_user_profile.first().number_of_favors - favor.number_of_favors)
         elif action == "DENY":
             favor.pendingUsers.remove(user)
         else:

@@ -18,23 +18,27 @@ table {
 }
 
 td.title {
-    width: 15vw;
+    width: 12.5vw;
 }
 
 td.number-of-favors {
-    width: 7vw;
+    width: 6vw;
 }
 
 td.location {
-    width: 15vw;
+    width: 12vw;
 }
 
 td.status {
     text-align: center;
 }
 
+td.actions {
+    width: 9vw;
+}
+
 td.desc {
-    max-width: 20vw;
+    max-width: 17vw;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
