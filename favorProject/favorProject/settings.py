@@ -50,6 +50,12 @@ INSTALLED_APPS = [
     'django_nose',
 ]
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'donotreply.favor@gmail.com'
+EMAIL_HOST_PASSWORD = 'favorapp123'
+EMAIL_PORT = 587
+
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -58,7 +64,6 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-erase',
     '--cover-package=favorApp',
-    '--verbosity=2',
     '--exe'
 ]
 

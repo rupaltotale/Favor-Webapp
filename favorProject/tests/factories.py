@@ -9,7 +9,9 @@ class UserFactory(factory.Factory):
 
     first_name = 'John'
     last_name = 'Doe'
-    username = "johndoe"
+    id = factory.Sequence(lambda n: n)
+    email = factory.Sequence(lambda n: 'johndoe{0}@johndoe.com'.format(n))
+    username = factory.Sequence(lambda n: 'johndoe{0}'.format(n))
     password = factory.PostGenerationMethodCall('set_password', 'password')
 
 
@@ -30,11 +32,9 @@ class FavorFactory(factory.Factory):
     class Meta:
         model = Favor
 
-    title = 'Massage'
+    id = factory.Sequence(lambda n: n)
+    title = factory.Sequence(lambda n: 'Massage{}'.format(n))
     description = 'Massage'
     number_of_favors = 3
     date = timezone.now() + timezone.timedelta(weeks=2)
     location = 'location'
-    volunteer_event = False
-    requester_signed = False
-    giver_signed = False

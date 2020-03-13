@@ -5,7 +5,6 @@
 
 {% endblock pageHeader%}
 {% block pageContent %}
-    
     <div class="title-container">
         <h2 class="display-4 text-center">Available Favors</h2>
     </div>
@@ -20,12 +19,13 @@
                 value={{ search_term }}
                 >
             <small id="textHelpBlock" class="form-text text-muted text-center">
-                Filter listing of favors by name and descriprion. Listings are filtered as you type. 
+                Filter listing of favors by name and description. Listings are filtered as you type. 
             </small>
             {% comment %} <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> {% endcomment %}
         </form>
     </div>
     <div class="general-card-container">
+        <h3 class="full-width text-center">Your Favors: {{ user_favors }}</h3>
         <div class="my-card-list">
             {% for card in cards %}
                 <div class="my-card card-row-separator">
@@ -51,28 +51,49 @@
                             <input type='hidden' value='{{card.id}}' name='card_id'>
                             {% if current_user in card.pendingUsers.all %}
                                 <button
-                                    class="btn secondary-background white signup-button disabled btn-success"
+                                    class="btn secondary-background signup-button disabled btn-warning"
                                     value="{{card.id}}"
                                     type="submit"
                                     disabled
                                 >
-                                    Pending <i class="fas fa-check"></i>
+                                    Pending <i class="fas fa-user-clock"></i>
                                 </button>
-                            {% else %} 
+                            {% elif current_user in card.confirmedUsers.all %}
                                 <button
-                                    class="btn secondary-background white signup-button"
+                                    class="btn secondary-background signup-button disabled btn-success"
                                     value="{{card.id}}"
                                     type="submit"
+                                    disabled
                                 >
-                                    Sign Up
+                                    Confirmed <i class="fas fa-check"></i>
                                 </button>
-                            {% endif %} 
+                            {% else %}
+                                {% if card.number_of_favors > user_favors %}
+                                    <button
+                                        class="btn bg-secondary white signup-button"
+                                        value="{{card.id}}"
+                                        type="submit"
+                                        title="You do not have enough favors"
+                                        disabled       
+                                    >
+                                        Sign Up
+                                    </button>
+                                {% else %}
+                                    <button
+                                        class="btn secondary-background white signup-button"
+                                        value="{{card.id}}"
+                                        type="submit"
+                                    >
+                                        Sign Up
+                                    </button>
+                                {% endif %} 
+                            {% endif %}
                         </form>
                     </div>
                 </div>
             {% empty %}
                 <div class="alert alert-warning text-center" role="alert">
-                    Sorry, no favors matched your search.
+                    No favors exist or match your search.
                 </div>
             {% endfor %}
         </div>
@@ -101,8 +122,9 @@
     $('.signup-button').on('click',function() {
         var $formId = $(this).parents('form');
         $(this).prop("disabled",true);
-        this.innerHTML = `Pending <i class="fas fa-check"></i>`;
-        $(this).addClass("disabled btn-success");
+        this.innerHTML = `Pending <i class="fas fa-spinner"></i>`;
+        $(this).addClass("disabled btn-warning");
+        $(this).removeClass("white")
         $formId.trigger('submit');
     });
 </script>

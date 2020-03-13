@@ -1,5 +1,5 @@
 from django.test import TestCase
-from tests.factories import UserFactory
+from tests.factories import *
 from django.urls import reverse
 
 class HomePageViewTests(TestCase):
@@ -54,3 +54,17 @@ class HomePageViewTests(TestCase):
 
       self.assertEqual(expected_status_code, response.status_code)
       self.assertTemplateUsed(response, expected_template)
+
+
+   def test_users_favors_do_not_show(self):
+      expected_cards_to_exist = 1
+      temp_other_user = UserFactory()
+      temp_other_user.save()
+      favor1 = FavorFactory(owner=self.user)
+      favor1.save()
+      favor2 = FavorFactory(owner=temp_other_user)
+      favor2.save()
+
+      response = self.client.get(self.url)
+
+      self.assertEqual(expected_cards_to_exist, len(response.context["cards"]))

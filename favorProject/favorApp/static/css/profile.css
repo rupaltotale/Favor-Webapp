@@ -1,0 +1,55 @@
+:root {
+    --table-size: 60vw;
+}
+
+.pending-user-modal-icons {
+    margin-right: 25px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.pending-user-modal-icons:hover {
+    transform: scale(1.3);
+    opacity: 0.8;
+}
+
+table {
+    width: var(--table-size);
+}
+
+td.title {
+    width: 12.5vw;
+}
+
+td.number-of-favors {
+    width: 6vw;
+}
+
+td.location {
+    width: 12vw;
+}
+
+td.status {
+    text-align: center;
+}
+
+td.actions {
+    width: 9vw;
+}
+
+td.desc {
+    max-width: 17vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+td.requesters {
+    width: 8vw;
+}
+
+.empty-message {
+    width: var(--table-size);
+    border: 0;
+    text-align: left;
+}

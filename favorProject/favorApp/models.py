@@ -13,9 +13,15 @@ class Favor(models.Model):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     pendingUsers = models.ManyToManyField(User, related_name='pending_users')
-    volunteer_event = models.BooleanField(default=False)
-    requester_signed = models.BooleanField(default=False)
-    giver_signed = models.BooleanField(default=False)
+    confirmedUsers = models.ManyToManyField(User, related_name='confirmed_users')
 
     def __str__(self):
         return "Title: {}, Description: {}, Owner: {}".format(self.title, self.description, self.owner)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    number_of_favors = models.IntegerField(blank=False, default=5)
+
+    def __str__(self):
+        return "User: {}, favors: {}".format(self.user, self.number_of_favors)
