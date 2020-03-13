@@ -37,7 +37,7 @@ def show_services(request):
         owner_email = favor.owner.email
         title = "You have a new request - Favor"
         body = "Hooray! Someone has requested your service: {}. \nReach out to {} at {}. \
-            \nYou can also confirm or deny their on your profile page.".format(
+            \nYou can also confirm or deny their request on your profile page.".format(
             favor.title,
             current_user.first_name + " " + current_user.last_name,
             current_user.email
