@@ -41,7 +41,7 @@ class ProfileUITests(StaticLiveServerTestCase):
         self.user2 = user2
         self.user3 = user3
         self.favor = favor
-        self.wait = 0
+        self.wait = 1
         SeleniumLoginHelper.do_login(self.browser, self.live_server_url, user, wait=0)
 
 
